@@ -1,0 +1,8 @@
+<%- include('../layout/header'); -%>
+
+<h2>Préstamos:</h2>
+<a href="/prestamo/new">Nuevo préstamo</a>
+<% for (const prestamo of prestamos) { %>
+    <%- include('prestamoCard', { prestamo }) -%>
+<% } %>
+<%- include('../layout/footer'); -%>
