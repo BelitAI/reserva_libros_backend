@@ -1,4 +1,4 @@
-const usuarios = [
+let usuarios = [
   { id: 1, nombre: 'Juan',  apellidos: 'García López',    mail: 'juan@gmail.com',  contrasena: '123456', es_admin: false },
   { id: 2, nombre: 'María', apellidos: 'Fernández Pérez', mail: 'maria@gmail.com', contrasena: '123456', es_admin: true  },
   { id: 3, nombre: 'Pedro', apellidos: 'Martínez Ruiz',   mail: 'pedro@gmail.com', contrasena: '123456', es_admin: false },
