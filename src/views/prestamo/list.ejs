@@ -1,8 +1,46 @@
-<%- include('../layout/header'); -%>
+<!DOCTYPE html>
+<html lang="es">
 
-<h2>Préstamos:</h2>
-<a href="/prestamo/new">Nuevo préstamo</a>
-<% for (const prestamo of prestamos) { %>
-    <%- include('prestamoCard', { prestamo }) -%>
-<% } %>
-<%- include('../layout/footer'); -%>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de préstamos</title>
+</head>
+
+<body>
+
+    <h1>Lista de préstamos</h1>
+
+    <a href="/prestamo/new">+ Nuevo préstamo</a>
+
+    <% if (prestamos && prestamos.length > 0) { %>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>ID usuario</th>
+                    <th>ID libro</th>
+                    <th>Fecha de préstamo</th>
+                    <th>Fecha de devolución</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <% prestamos.forEach(prestamo => { %>
+                    <tr>
+                        <td><%= prestamo.id %></td>
+                        <td><%= prestamo.usuario_id %></td>
+                        <td><%= prestamo.libro_id %></td>
+                        <td><%= prestamo.fecha_prestamo %></td>
+                        <td><%= prestamo.fecha_devolucion || 'Pendiente' %></td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    <% } else { %>
+        <p>No hay préstamos registrados.</p>
+    <% } %>
+
+</body>
+
+</html>

@@ -41,7 +41,7 @@ const createForm = (req, res) => {
 // ------------------ R (Read)---------------------------------------------
 // endpoint lista de datos
 const getAll = (req, res) => {
-    res.render("prestamo/list", { prestamos: prestamos.map(conDatos) });
+    res.render("prestamo/list", { prestamos });
 };
 
 // endpoint dato individual
