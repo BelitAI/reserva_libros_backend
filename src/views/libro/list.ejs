@@ -1,0 +1,9 @@
+<%- include('../layout/header') %>
+
+<h2>Libros</h2>
+
+<% for (const libro of libros) { %>
+    <%- include('libroCard', { libro }) %>
+<% } %>
+
+<%- include('../layout/footer') %>
