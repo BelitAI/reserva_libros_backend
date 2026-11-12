@@ -1,0 +1,28 @@
+<%- include('../layout/header'); -%>
+
+<h2>Nuevo préstamo:</h2>
+<form action="/prestamo" method="post">
+    <label for="usuario_id">Usuario</label>
+    <select name="usuario_id" id="usuario_id" required>
+        <% for (const usuario of usuarios) { %>
+            <option value="<%= usuario.id %>"><%= usuario.nombre %> <%= usuario.apellidos %></option>
+        <% } %>
+    </select>
+
+    <label for="libro_id">Libro</label>
+    <select name="libro_id" id="libro_id" required>
+        <% for (const libro of libros) { %>
+            <option value="<%= libro.id %>"><%= libro.titulo %></option>
+        <% } %>
+    </select>
+
+    <label for="fecha_prestamo">Fecha de préstamo</label>
+    <input type="date" name="fecha_prestamo" id="fecha_prestamo" required>
+
+    <label for="fecha_devolucion">Fecha de devolución</label>
+    <input type="date" name="fecha_devolucion" id="fecha_devolucion">
+
+    <button>Crear</button>
+</form>
+<a href="/prestamo">Volver</a>
+<%- include('../layout/footer'); -%>
