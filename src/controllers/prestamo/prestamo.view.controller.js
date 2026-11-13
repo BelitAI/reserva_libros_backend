@@ -1,95 +1,103 @@
-
-import { prestamos, usuarios, libros } from "../../models/index.js";
-
-// Añade el usuario y el libro completos a cada préstamo (para mostrarlos en la vista)
-const conDatos = (prestamo) => ({
-    ...prestamo,
-    usuario: usuarios.find(u => u.id === prestamo.usuario_id),
-    libro: libros.find(l => l.id === prestamo.libro_id)
-});
+import * as service from "../../services/prestamo.service.js";
+import { PrestamoError } from "../../services/prestamo.service.js";
 
 // ------------------ CRUD de préstamo ----------------------------
 
 // ------------------ C (Create)
-// endpoint para crear dato
-const create = (req, res) => {
-    const id = prestamos.length > 0 ? prestamos[prestamos.length - 1].id + 1 : 1;
-    const { usuario_id, libro_id, fecha_prestamo, fecha_devolucion } = req.body;
-    const prestamo = {
-        id,
-        usuario_id: parseInt(usuario_id),
-        libro_id: parseInt(libro_id),
-        fecha_prestamo,
-        fecha_devolucion: fecha_devolucion || null
-    };
-    prestamos.push(prestamo);
-
-    // el libro pasa a estar prestado si no se ha devuelto
-    const libro = libros.find(l => l.id === prestamo.libro_id);
-    if (libro && !prestamo.fecha_devolucion) {
-        libro.estado = "prestado";
-    }
-
-    res.redirect("/prestamo/" + id);
+const createForm = async (req, res) => {
+    const [usuarios, libros] = await Promise.all([
+        service.usuariosParaFormulario(),
+        service.librosParaFormulario()
+    ]);
+    res.render("prestamo/create", { usuarios, libros, error: null, datos: {} });
 };
 
-const createForm = (req, res) => {
-    const librosDisponibles = libros.filter(l => l.estado === "disponible");
-    res.render("prestamo/create", { usuarios, libros: librosDisponibles });
+// endpoint para crear dato
+const create = async (req, res) => {
+    try {
+        const prestamo = await service.crear(req.body);
+        res.redirect("/prestamo/" + prestamo.id);
+    } catch (error) {
+        if (!(error instanceof PrestamoError)) throw error;
+        const [usuarios, libros] = await Promise.all([
+            service.usuariosParaFormulario(),
+            service.librosParaFormulario()
+        ]);
+        res.status(error.status).render("prestamo/create", { usuarios, libros, error: error.message, datos: req.body });
+    }
 };
 
 // ------------------ R (Read)---------------------------------------------
 // endpoint lista de datos
-const getAll = (req, res) => {
+const getAll = async (req, res) => {
+    const prestamos = await service.listar();
     res.render("prestamo/list", { prestamos });
 };
 
 // endpoint dato individual
-const getById = (req, res) => {
-    const id = parseInt(req.params.id);
-    const prestamo = prestamos.find(p => p.id === id);
-    res.render("prestamo/show", { prestamo: prestamo ? conDatos(prestamo) : null });
+const getById = async (req, res) => {
+    let prestamo = null;
+    try {
+        prestamo = await service.obtener(req.params.id);
+    } catch (error) {
+        if (!(error instanceof PrestamoError)) throw error; // id no numérico -> "No existe"
+    }
+    res.status(prestamo ? 200 : 404).render("prestamo/show", { prestamo });
 };
 
 // ---------------- U (Update) -----------------------------------
-// endpoint para cambiar dato por completo
-const update = (req, res) => {
-    const id = parseInt(req.params.id);
-    const prestamo = prestamos.find(p => p.id === id);
+const updateForm = async (req, res) => {
+    let prestamo = null;
+    try {
+        prestamo = await service.obtener(req.params.id);
+    } catch (error) {
+        if (!(error instanceof PrestamoError)) throw error;
+    }
     if (!prestamo) {
         return res.redirect("/prestamo");
     }
-    const { usuario_id, libro_id, fecha_prestamo, fecha_devolucion } = req.body;
-    prestamo.usuario_id = parseInt(usuario_id);
-    prestamo.libro_id = parseInt(libro_id);
-    prestamo.fecha_prestamo = fecha_prestamo;
-    prestamo.fecha_devolucion = fecha_devolucion || null;
-
-    // si tiene fecha de devolución, el libro vuelve a estar disponible
-    const libro = libros.find(l => l.id === prestamo.libro_id);
-    if (libro) {
-        libro.estado = prestamo.fecha_devolucion ? "disponible" : "prestado";
-    }
-
-    res.redirect("/prestamo/" + prestamo.id);
+    const [usuarios, libros] = await Promise.all([
+        service.usuariosParaFormulario(),
+        service.librosParaFormulario(prestamo.libroId)
+    ]);
+    res.render("prestamo/edit", { prestamo, usuarios, libros, error: null });
 };
 
-const updateForm = (req, res) => {
-    const id = parseInt(req.params.id);
-    const prestamo = prestamos.find(p => p.id === id);
-    if (!prestamo) {
-        return res.redirect("/prestamo");
+// endpoint para cambiar dato por completo
+const update = async (req, res) => {
+    try {
+        const prestamo = await service.actualizar(req.params.id, {
+            ...req.body,
+            fechaDevolucion: req.body.fechaDevolucion || null
+        });
+        res.redirect("/prestamo/" + prestamo.id);
+    } catch (error) {
+        if (!(error instanceof PrestamoError)) throw error;
+        if (error.status === 404 && error.message === "Préstamo no encontrado") {
+            return res.redirect("/prestamo");
+        }
+        const prestamo = await service.obtener(req.params.id);
+        const [usuarios, libros] = await Promise.all([
+            service.usuariosParaFormulario(),
+            service.librosParaFormulario(prestamo.libroId)
+        ]);
+        // se conservan los valores que el usuario acababa de escribir
+        prestamo.set({
+            usuarioId: Number(req.body.usuario) || prestamo.usuarioId,
+            libroId: Number(req.body.libro) || prestamo.libroId,
+            fechaPrestamo: req.body.fechaPrestamo || prestamo.fechaPrestamo,
+            fechaDevolucion: req.body.fechaDevolucion || null
+        });
+        res.status(error.status).render("prestamo/edit", { prestamo, usuarios, libros, error: error.message });
     }
-    res.render("prestamo/edit", { prestamo, usuarios, libros });
 };
 
 // ------------------------ D (Delete)------------
-
-const remove = (req, res) => {
-    const id = parseInt(req.params.id);
-    const index = prestamos.findIndex(p => p.id === id);
-    if (index > -1) {
-        prestamos.splice(index, 1);
+const remove = async (req, res) => {
+    try {
+        await service.eliminar(req.params.id);
+    } catch (error) {
+        if (!(error instanceof PrestamoError)) throw error;
     }
     res.redirect("/prestamo");
 };
