@@ -1,82 +1,84 @@
+import * as service from "../../services/prestamo.service.js";
+import { PrestamoError } from "../../services/prestamo.service.js";
 
-import { prestamos } from "../../models/index.js";
-
+// Convierte los errores de negocio en respuestas JSON; el resto se propaga (500).
+const responderError = (res, error) => {
+    if (error instanceof PrestamoError) {
+        return res.status(error.status).json({ error: error.message });
+    }
+    throw error;
+};
 
 // ------------------ CRUD de préstamo ----------------------------
 
 // ------------------ C (Create)
 // endpoint para crear dato
-const create = (req, res) => {
-    const id = prestamos.length > 0 ? prestamos[prestamos.length - 1].id + 1 : 1;
-    const { usuario_id, libro_id, fecha_prestamo, fecha_devolucion } = req.body;
-    const prestamo = {
-        id,
-        usuario_id,
-        libro_id,
-        fecha_prestamo,
-        fecha_devolucion: fecha_devolucion || null
-    };
-    prestamos.push(prestamo);
-    res.status(201).json({ data: prestamo });
+const create = async (req, res) => {
+    try {
+        const prestamo = await service.crear(req.body);
+        res.status(201).json({ data: prestamo });
+    } catch (error) {
+        responderError(res, error);
+    }
 };
 
 // ------------------ R (Read)---------------------------------------------
 // endpoint lista de datos
-const getAll = (req, res) => {
+const getAll = async (req, res) => {
+    const prestamos = await service.listar();
     res.json({ data: prestamos });
 };
 
 // endpoint dato individual
-const getById = (req, res) => {
-    const id = parseInt(req.params.id);
-    const prestamo = prestamos.find(p => p.id === id);
-    if (!prestamo) {
-        return res.status(404).json({ error: "Préstamo no encontrado" });
+const getById = async (req, res) => {
+    try {
+        const prestamo = await service.obtener(req.params.id);
+        if (!prestamo) {
+            return res.status(404).json({ error: "Préstamo no encontrado" });
+        }
+        res.json({ data: prestamo });
+    } catch (error) {
+        responderError(res, error);
     }
-    res.json({ data: prestamo });
 };
 
 // ---------------- U (Update) -----------------------------------
 // endpoint para cambiar dato por completo
-const update = (req, res) => {
-    const id = parseInt(req.params.id);
-    const prestamo = prestamos.find(p => p.id === id);
-    if (!prestamo) {
-        return res.status(404).json({ error: "Préstamo no encontrado" });
+const update = async (req, res) => {
+    try {
+        const { usuario, libro, fechaPrestamo } = req.body;
+        if (usuario === undefined || libro === undefined || fechaPrestamo === undefined) {
+            return res.status(400).json({ error: "PUT requiere usuario, libro y fechaPrestamo" });
+        }
+        const prestamo = await service.actualizar(req.params.id, {
+            ...req.body,
+            fechaDevolucion: req.body.fechaDevolucion ?? null
+        });
+        res.json({ data: prestamo });
+    } catch (error) {
+        responderError(res, error);
     }
-    const { usuario_id, libro_id, fecha_prestamo, fecha_devolucion } = req.body;
-    prestamo.usuario_id = usuario_id;
-    prestamo.libro_id = libro_id;
-    prestamo.fecha_prestamo = fecha_prestamo;
-    prestamo.fecha_devolucion = fecha_devolucion || null;
-    res.json({ data: prestamo });
 };
 
 // endpoint para cambiar parte del dato
-const modify = (req, res) => {
-    const id = parseInt(req.params.id);
-    const prestamo = prestamos.find(p => p.id === id);
-    if (!prestamo) {
-        return res.status(404).json({ error: "Préstamo no encontrado" });
+const modify = async (req, res) => {
+    try {
+        const prestamo = await service.actualizar(req.params.id, req.body);
+        res.json({ data: prestamo });
+    } catch (error) {
+        responderError(res, error);
     }
-    const { usuario_id, libro_id, fecha_prestamo, fecha_devolucion } = req.body;
-    prestamo.usuario_id = usuario_id ?? prestamo.usuario_id;
-    prestamo.libro_id = libro_id ?? prestamo.libro_id;
-    prestamo.fecha_prestamo = fecha_prestamo ?? prestamo.fecha_prestamo;
-    prestamo.fecha_devolucion = fecha_devolucion ?? prestamo.fecha_devolucion;
-    res.json({ data: prestamo });
 };
 
 // ------------------------ D (Delete)------------
 
-const remove = (req, res) => {
-    const id = parseInt(req.params.id);
-    const index = prestamos.findIndex(p => p.id === id);
-    if (index === -1) {
-        return res.status(404).json({ error: "Préstamo no encontrado" });
+const remove = async (req, res) => {
+    try {
+        const prestamo = await service.eliminar(req.params.id);
+        res.json({ data: prestamo });
+    } catch (error) {
+        responderError(res, error);
     }
-    const [prestamo] = prestamos.splice(index, 1);
-    res.json({ data: prestamo });
 };
 
 

@@ -2,8 +2,8 @@
     <h3>Préstamo #<%= prestamo.id %></h3>
     <p>Usuario: <%= prestamo.usuario ? prestamo.usuario.nombre + " " + prestamo.usuario.apellidos : "Desconocido" %></p>
     <p>Libro: <%= prestamo.libro ? prestamo.libro.titulo : "Desconocido" %></p>
-    <p>Fecha de préstamo: <%= prestamo.fecha_prestamo %></p>
-    <p>Fecha de devolución: <%= prestamo.fecha_devolucion || "Pendiente" %></p>
+    <p>Fecha de préstamo: <%= prestamo.fechaPrestamo %></p>
+    <p>Fecha de devolución: <%= prestamo.fechaDevolucion || "Pendiente" %></p>
     <a href="/prestamo/<%= prestamo.id %>">Visitar</a>
     <a href="/prestamo/<%= prestamo.id %>/edit">Editar</a>
     <form method="post" action="/prestamo/<%= prestamo.id %>/delete">
