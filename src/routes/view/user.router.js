@@ -2,42 +2,42 @@ import { Router } from "express";
 import userViewController from "../../controllers/user/user.view.controller.js"
 const router = Router();
 
-// ------------------ C (Create) ------------------
+// // ------------------ C (Create) ------------------
 
-// Vista de creación
+// // Vista de creación
 router.get("/new", userViewController.createForm);
 
-// Crear usuario
+// // Crear usuario
 router.post("/new", userViewController.createUser);
-// ------------------ LOGIN ------------------
+// // ------------------ LOGIN ------------------
 
-// Vista de login
-router.get("/login", userViewController.loginForm);
+// // Vista de login
+// router.get("/login", userViewController.loginForm);
 
-// Comprobar login
-router.post("/login", userViewController.login);
+// // Comprobar login
+// router.post("/login", userViewController.login);
 
-// ------------------ R (Read) ------------------
+// // ------------------ R (Read) ------------------
 
-// Mostrar todos los usuarios
+// // Mostrar todos los usuarios
 router.get("/", userViewController.getAll);
 
-// Mostrar usuario individual
+// // Mostrar usuario individual
 router.get("/:id", userViewController.getById);
 
 
-// ------------------ U (Update) ------------------
+// // ------------------ U (Update) ------------------
 
-// Vista de actualización
-router.get("/:id/edit", userViewController.updateForm);
+// // Vista de actualización
+// router.get("/:id/edit", userViewController.updateForm);
 
-// Actualizar usuario
-router.post("/:id/edit", userViewController.update);
+// // Actualizar usuario
+// router.post("/:id/edit", userViewController.update);
 
 
-// ------------------ D (Delete) ------------------
+// // ------------------ D (Delete) ------------------
 
-// Eliminar usuario
+// // Eliminar usuario
 router.post("/:id/delete", userViewController.deleteUser);
 
 

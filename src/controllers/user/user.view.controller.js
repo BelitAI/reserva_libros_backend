@@ -1,81 +1,71 @@
-import { usuarios } from "../../models/index.js";
+import userRepository from "../../repositories/user.repository.js";
 
 const createForm = (req, res) => {
     res.render("user/newUser");
 };
 
-const createUser = (req, res) => {
+const createUser = async (req, res) => {
     const { nombre, apellidos, mail, contrasena } = req.body;
-    const id = usuarios[usuarios.length - 1].id + 1
-    const nuevoUsuario = {
-        id,
-        nombre,
-        apellidos,
-        mail,
-        contrasena
-    }
-    usuarios.push(nuevoUsuario);
+    await userRepository.createUser(req.body);
     res.redirect("/user/");
 
 };
 
 
 // READ
-const getAll = (req, res) => {
+const getAll = async (req, res) => {
+    const usuarios = await userRepository.getAll();
     res.render("user/users", { usuarios });
 };
 
-const getById = (req, res) => {
+const getById = async (req, res) => {
     const id = parseInt(req.params.id);
-    const usuario = usuarios.find(u => u.id === id)
+    const usuario = await userRepository.getById(id)
     res.render("user/infoUser", { usuario })
 };
 
 
-// UPDATE
-const updateForm = (req, res) => {
-    // Mostrar formulario de edición
-};
 
-const update = (req, res) => {
-    // Actualizar usuario
-};
+// // UPDATE
+// const updateForm = (req, res) => {
+//     // Mostrar formulario de edición
+// };
+
+// const update = (req, res) => {
+//     // Actualizar usuario
+// };
 
 
 // DELETE
-const deleteUser = (req, res) => {
+const deleteUser = async (req, res) => {
     const id = parseInt(req.params.id);
-    const indice = usuarios.findIndex(usuario => usuario.id === id);
-
-    if (indice !== -1) {
-        usuarios.splice(indice, 1);
-    }
+    await userRepository.removeUser(id)
     res.redirect("/user/");
 };
 
-const loginForm = (req, res) => {
-    res.render("user/login");
-};
+// const loginForm = (req, res) => {
+//     res.render("user/login");
+// };
 
-const login = (req, res) => {
-    const { email, password } = req.body;
-    const usuario = usuarios.find(usuario =>
-        usuario.mail === email && usuario.contrasena === password
-    );
-    if (!usuario) {
-        return res.send("Email o constraseña incorrectos");
-    }
-    res.send(`Bienvenido ${usuario.nombre} ${usuario.contrasena}`)
-};
+// const login = (req, res) => {
+//     const { email, password } = req.body;
+//     const usuario = usuarios.find(usuario =>
+//         usuario.mail === email && usuario.contrasena === password
+//     );
+//     if (!usuario) {
+//         return res.send("Email o constraseña incorrectos");
+//     }
+//     res.send(`Bienvenido ${usuario.nombre} ${usuario.contrasena}`)
+// };
 
 export default {
     createForm,
-    createUser,
     getAll,
     getById,
-    updateForm,
-    update,
+    createUser,
+    // updateForm,
+    // update,
     deleteUser,
-    login,
-    loginForm
+    // login,
+    // loginForm
 }
