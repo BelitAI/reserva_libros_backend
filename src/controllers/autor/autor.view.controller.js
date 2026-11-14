@@ -1,8 +1,9 @@
-import { autores } from "../../models/index.js";
+import autorRepository from "../../repositories/autor.repository.js";
 
 //Mostrar todos los autores
 
-const getAll = (req, res) => {
+const getAll = async (req, res) => {
+    const autores = await autorRepository.obtenerTodos()
     res.render("autor/list", { autores });
 };
 
@@ -14,24 +15,13 @@ const createForm = (req, res) => {
 }
 
 //crear un autor 
-const create = (req, res) =>{
-    const id = autores[autores.length - 1].id + 1;
+const create = async (req, res) => {
+ await autorRepository.createAutores(req.body);
 
-    const{ nombre, nacionalidad, fecha_nacimiento } = req.body;
-
-    const nuevoAutor = {
-        id,
-        nombre,
-        nacionalidad,
-        fecha_nacimiento
-    };
-
-    autores.push(nuevoAutor);
-
-    res.redirect("/autores")
+    res.redirect("/autores") 
 };
 
-export default{
+export default {
     getAll,
     createForm,
     create

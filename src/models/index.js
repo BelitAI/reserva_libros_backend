@@ -1,3 +1,5 @@
+import autores from "./autor.model.js";
+
 let usuarios = [
   { id: 1, nombre: 'Juan',  apellidos: 'García López',    mail: 'juan@gmail.com',  contrasena: '123456', es_admin: false },
   { id: 2, nombre: 'María', apellidos: 'Fernández Pérez', mail: 'maria@gmail.com', contrasena: '123456', es_admin: true  },
@@ -5,12 +7,12 @@ let usuarios = [
   { id: 4, nombre: 'Laura', apellidos: 'Sánchez Gómez',   mail: 'laura@gmail.com', contrasena: '123456', es_admin: false },
 ];
 
-const autores = [
-  { id: 1, nombre: 'Miguel de Cervantes',    nacionalidad: 'Española',   fecha_nacimiento: '1547-09-29' },
-  { id: 2, nombre: 'Gabriel García Márquez', nacionalidad: 'Colombiana', fecha_nacimiento: '1927-03-06' },
-  { id: 3, nombre: 'George Orwell',          nacionalidad: 'Británica',  fecha_nacimiento: '1903-06-25' },
-  { id: 4, nombre: 'J. K. Rowling',          nacionalidad: 'Británica',  fecha_nacimiento: '1965-07-31' },
-];
+// const autores = [
+//   { id: 1, nombre: 'Miguel de Cervantes',    nacionalidad: 'Española',   fecha_nacimiento: '1547-09-29' },
+//   { id: 2, nombre: 'Gabriel García Márquez', nacionalidad: 'Colombiana', fecha_nacimiento: '1927-03-06' },
+//   { id: 3, nombre: 'George Orwell',          nacionalidad: 'Británica',  fecha_nacimiento: '1903-06-25' },
+//   { id: 4, nombre: 'J. K. Rowling',          nacionalidad: 'Británica',  fecha_nacimiento: '1965-07-31' },
+// ];
 
 const libros = [
   { id: 1, titulo: 'Don Quijote de la Mancha',           autor_id: 1, genero: 'Novela',          estado: 'disponible' },
