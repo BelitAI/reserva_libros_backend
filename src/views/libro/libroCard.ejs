@@ -1,6 +1,13 @@
 <article class="libro-card">
-    <h3><%= libro.titulo %></h3>
-    <p>Género: <%= libro.genero %></p>
-    <p>Estado: <%= libro.estado %></p>
+    <h3>
+        <%= libro.titulo %>
+    </h3>
+    <p>Género: <%= libro.genero %>
+    </p>
+    <p>Estado: <%= libro.estado %>
+    </p>
     <a href="/libro/<%= libro.id %>">Ver detalle</a>
+    <form method="post" action="/libro/<%= libro.id %>/delete">
+        <button type="submit">Eliminar libro</button>
+    </form>
 </article>
