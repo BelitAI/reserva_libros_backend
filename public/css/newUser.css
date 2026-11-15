@@ -1,0 +1,80 @@
+/* FORMULARIO DE REGISTRO */
+.containerNewUser {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.formContainer{
+    width: 500px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 30px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.formContainer h1 {
+    margin-bottom: 10px;
+}
+
+.formContainer>p {
+    text-align: center;
+    color: #666;
+    margin-bottom: 25px;
+}
+
+.formGroup {
+    margin-bottom: 18px;
+}
+
+.formGroup label {
+    display: block;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.formGroup input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.formGroup input:focus {
+    outline: none;
+    border-color: #64748b;
+}
+
+.formButton {
+    width: 100%;
+    padding: 11px;
+    background-color: #334155;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.formButton:hover {
+    background-color: #1e293b;
+}
+
+.formFooter {
+    margin-top: 25px;
+    text-align: center;
+}
+
+.formFooter a {
+    color: #2563eb;
+    text-decoration: none;
+}
+
+.formFooter a:hover {
+    text-decoration: underline;
+}

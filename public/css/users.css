@@ -1,0 +1,75 @@
+.container {
+    padding: 25px;
+    width: 100vw;
+}
+
+.container h1 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+/* BOTÓN NUEVO USUARIO */
+
+.container > a {
+    display: inline-block;
+    background-color: #2563eb;
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.container > a:hover {
+    background-color: #1d4ed8;
+}
+
+/* TABLA */
+
+.container table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.container th,
+.container td {
+    padding: 12px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+.container th {
+    background-color: #1e293b;
+    color: white;
+}
+
+.container tr:nth-child(even) {
+    background-color: #f1f5f9;
+}
+
+/* BOTONES DE ACCIONES */
+
+.container button {
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+}
+
+.container button:hover {
+    opacity: 0.85;
+}
+
+/* BOTÓN ELIMINAR */
+
+.container form[action*="delete"] button {
+    background-color: #dc2626;
+}
+
+/* BOTÓN VER */
+
+.container form:not([action*="delete"]) button {
+    background-color: #2563eb;
+}
