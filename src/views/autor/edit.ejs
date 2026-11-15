@@ -1,18 +1,10 @@
-<!DOCTYPE html>
-<html lang="es">
+<%- include('../layout/header'); -%>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar autor</title>
-    <link rel="stylesheet" href="/css/autor.css">
-</head>
-
-<body>
+<div class="contenedor-formulario">
 
     <h1>Editar autor</h1>
 
-    <form  class="formulario" action="/autores/editar/<%= autor.id %>" method="POST">
+    <form class="formulario" action="/autores/editar/<%= autor.id %>" method="POST">
 
         <label for="nombre">Nombre:</label>
         <input type="text" id="nombre" name="nombre" value="<%= autor.nombre %>" required>
@@ -27,7 +19,8 @@
 
     </form>
 
-    <a href="/autores" class="btn-volver"> ← Volver a la lista</a>
+    <a href="/autores" class="btn-volver">← Volver a la lista</a>
 
-</body>
-</html>
+</div>
+
+<%- include('../layout/footer'); -%>
