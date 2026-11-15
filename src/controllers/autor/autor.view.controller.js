@@ -69,6 +69,12 @@ const remove = async (req, res) => {
     }
 };
 
+//libros de los autores
+const getById = async (req, res) => {
+    const idAutor = parseInt(req.params.id);
+    const autor = await autorRepository.obtenerPorId(idAutor);
+    res.render("autor/autor-libros", { autor });
+};
 
 // EXPORTAR CONTROLADORES
 export default {
@@ -77,5 +83,6 @@ export default {
     create,
     editForm,
     update,
-    remove
+    remove,
+    getById
 };

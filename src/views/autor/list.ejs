@@ -1,19 +1,5 @@
-<!DOCTYPE html>
-<html lang="es">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de autores</title>
-
-    <!-- Hojas de estilo -->
-    <link rel="stylesheet" href="/css/autor.css">
-    <link rel="stylesheet" href="/css/modal.css">
-</head>
-
-<body>
-
-    <main class="pagina-autores">
+<%- include('../layout/header'); -%>
+    <div class="pagina-autores">
 
         <h1>Lista de autores</h1>
 
@@ -75,6 +61,10 @@
                                             data-url="/autores/eliminar/<%= autor.id %>">
                                             Eliminar
                                         </button>
+
+                                        <a href="/autores/autor/<%= autor.id %>" class="btn-mostrar-lib">
+                                            Ver libros
+                                        </a>
                                     </td>
                                 </tr>
 
@@ -86,7 +76,7 @@
 
                 </div>
 
-    </main>
+    </div>
 
     <!-- Ventana de confirmación -->
     <div id="modal-eliminar" class="modal">
@@ -119,6 +109,4 @@
     <!-- Archivo JavaScript externo -->
     <script src="/js/autor.js" defer></script>
 
-</body>
-
-</html>
+    <%- include('../layout/footer'); -%>

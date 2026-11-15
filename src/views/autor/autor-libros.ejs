@@ -1,0 +1,22 @@
+<h1>Libros de <%= autor.nombre %></h1>
+<table border="1">
+
+        <thead>
+            <tr>
+                <th>Título</th>
+                <th>Género</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <% autor.libros.forEach(libro=> { %>
+                <tr>
+                    <td><%= libro.titulo %></td>
+                    <td><%= libro.genero %></td>
+                    <td><%= libro.estado%></td>
+                </tr>
+                <% }) %>
+        </tbody>
+        
+</table>

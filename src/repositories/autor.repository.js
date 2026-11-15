@@ -1,4 +1,5 @@
 import Autor from "../models/autor.model.js";
+import Libro from "../models/libro.model.js";
 
 //LECTURA DE AUTORES (TABLA)
 const obtenerTodos = async () => {
@@ -24,7 +25,13 @@ const createAutores = async (datosAutor) => {
 
 //Buscar un autor por ID
 const obtenerPorId = async (id) =>{
-    const autor = await Autor.findByPk(id);
+    const autor = await Autor.findByPk(id, { 
+        include: [{
+            model: Libro,
+            as: "libros"
+        }]
+    });
+    
     return autor;
 }
 

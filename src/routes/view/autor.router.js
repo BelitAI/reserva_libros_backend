@@ -24,4 +24,7 @@ router.post("/editar/:id", autorController.update);
 //ELIMINAR UN AUTOR
 router.get("/eliminar/:id", autorController.remove);
 
+//MOSTRAR LIBROS DE LOS AUTORES
+router.get("/autor/:id", autorController.getById);
+
 export default router;

@@ -27,7 +27,7 @@
 
 body {
     margin: 0;
-    padding: 20px 15px;
+    /* padding: 20px 15px; */
     font-family: Arial, sans-serif;
     background-color: var(--color-fondo);
     color: var(--color-texto);
@@ -237,9 +237,9 @@ h1 {
 
 @media (min-width: 768px) {
 
-    body {
+    /* body {
         padding: 40px;
-    }
+    } */
 
     h1 {
         font-size: 30px;

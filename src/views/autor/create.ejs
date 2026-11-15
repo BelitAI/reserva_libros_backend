@@ -1,33 +1,23 @@
-<!DOCTYPE html>
-<html lang="es">
+<%- include('../layout/header'); -%>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crear autor</title>
-    <link rel="stylesheet" href="/css/autor.css">
-</head>
+    <div>
+        <h1>Nuevo autor</h1>
 
-<body>
+        <form class="formulario" action="/autores" method="POST">
 
-    <h1>Nuevo autor</h1>
+            <label for="nombre">Nombre y apellido:</label>
+            <input type="text" id="nombre" name="nombre" required>
 
-    <form class="formulario" action="/autores" method="POST">
+            <label for="nacionalidad">Nacionalidad:</label>
+            <input type="text" id="nacionalidad" name="nacionalidad" required>
 
-        <label for="nombre">Nombre y apellido:</label>
-        <input type="text" id="nombre" name="nombre" required>
+            <label for="fecha_nacimiento">Fecha de nacimiento:</label>
+            <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required>
 
-        <label for="nacionalidad">Nacionalidad:</label>
-        <input type="text" id="nacionalidad" name="nacionalidad" required>
+            <button type="submit">Guardar autor</button>
 
-        <label for="fecha_nacimiento">Fecha de nacimiento:</label>
-        <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required>
+        </form>
 
-        <button type="submit">Guardar autor</button>
-
-    </form>
-
-    <a href="/autores" class="btn-volver" > ← Volver a la lista</a>
-
-</body>
-</html>
+        <a href="/autores" class="btn-volver"> ← Volver a la lista</a>
+    </div>
+    <%- include('../layout/footer'); -%>
