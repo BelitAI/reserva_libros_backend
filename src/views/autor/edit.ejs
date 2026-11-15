@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar autor</title>
+    <link rel="stylesheet" href="/css/autor.css">
+</head>
+
+<body>
+
+    <h1>Editar autor</h1>
+
+    <form  class="formulario" action="/autores/editar/<%= autor.id %>" method="POST">
+
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" value="<%= autor.nombre %>" required>
+
+        <label for="nacionalidad">Nacionalidad:</label>
+        <input type="text" id="nacionalidad" name="nacionalidad" value="<%= autor.nacionalidad %>" required>
+
+        <label for="fecha_nacimiento">Fecha de nacimiento:</label>
+        <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" value="<%= autor.fechaNacimiento %>" required>
+
+        <button type="submit">Guardar autor</button>
+
+    </form>
+
+    <a href="/autores" class="btn-volver"> ← Volver a la lista</a>
+
+</body>
+</html>

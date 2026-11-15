@@ -2,7 +2,9 @@ import Autor from "../models/autor.model.js";
 
 //LECTURA DE AUTORES (TABLA)
 const obtenerTodos = async () => {
-    const autores = await Autor.findAll();
+    const autores = await Autor.findAll({ 
+        order: [["id", "ASC"]]
+    });
     return autores;
 
 };
@@ -19,8 +21,51 @@ const createAutores = async (datosAutor) => {
    return nuevoAutor;
 
 };
+
+//Buscar un autor por ID
+const obtenerPorId = async (id) =>{
+    const autor = await Autor.findByPk(id);
+    return autor;
+}
+
+//ACTUALIZAR AUTOR
+const actualizarAutor = async (id, datosAutor) => {
+
+    const autor = await Autor.findByPk(id);
+    
+    if (!autor) {
+        return null;
+    }
+
+    await autor.update({
+        nombre: datosAutor.nombre,
+        nacionalidad: datosAutor.nacionalidad,
+        fechaNacimiento: datosAutor.fecha_nacimiento
+    });
+
+    return autor;
+};
  
+//ELIMINAR UN AUTOR
+const eliminarAutor = async (id) => {
+
+    const autor = await Autor.findByPk(id);
+
+    if(!autor) {
+        return null;
+    }
+
+    await autor.destroy();
+
+    return autor;
+};
+
+
+
 export default {
     obtenerTodos,
-    createAutores
+    createAutores,
+    actualizarAutor,
+    obtenerPorId,
+    eliminarAutor
 };

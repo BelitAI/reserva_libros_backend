@@ -1,36 +1,80 @@
+```ejs
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de autores</title>
+
+    <link rel="stylesheet" href="/css/autor.css">
 </head>
+
 <body>
 
-    <h1>Lista de autores</h1>
+    <main class="pagina-autores">
 
-    <table border="1">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Nacionalidad</th>
-                <th>Fecha de nacimiento</th>
-            </tr>
-        </thead>
+        <h1>Lista de autores</h1>
 
-        <tbody>
-            <% autores.forEach(autor => { %>
-                <tr>
-                    <td><%= autor.id %></td>
-                    <td><%= autor.nombre %></td>
-                    <td><%= autor.nacionalidad %></td>
-                    <td><%= autor.fechaNacimiento %></td>
+        <!-- Enlace para añadir un nuevo autor -->
+        <a href="/autores/nuevo" class="btn-principal">
+            + Añadir autor
+        </a>
 
-                </tr>
-            <% }); %>
-        </tbody>
-    </table>
+        <!-- Contenedor de la tabla -->
+        <div class="contenedor-tabla">
+
+            <table class="tabla-autores">
+
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Nacionalidad</th>
+                        <th>Fecha de nacimiento</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <% autores.forEach(autor => { %>
+
+                        <tr>
+                            <td><%= autor.id %></td>
+
+                            <td><%= autor.nombre %></td>
+
+                            <td><%= autor.nacionalidad || '-' %></td>
+
+                            <td><%= autor.fechaNacimiento || '-' %></td>
+
+                            <td>
+                                <a 
+                                    class="btn-editar" 
+                                    href="/autores/editar/<%= autor.id %>">
+                                    Editar
+                                </a>
+
+                                <a 
+                                    class="btn-eliminar"
+                                    href="/autores/eliminar/<%= autor.id %>"
+                                    onclick="return confirm('¿Seguro que quieres eliminar este autor?')">
+                                    Eliminar
+                                </a>
+                            </td>
+                        </tr>
+
+                    <% }); %>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </main>
 
 </body>
 </html>
+```

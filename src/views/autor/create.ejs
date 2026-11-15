@@ -5,15 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear autor</title>
+    <link rel="stylesheet" href="/css/autor.css">
 </head>
 
 <body>
 
     <h1>Nuevo autor</h1>
 
-    <form action="/autores" method="POST">
+    <form class="formulario" action="/autores" method="POST">
 
-        <label for="nombre">Nombre:</label>
+        <label for="nombre">Nombre y apellido:</label>
         <input type="text" id="nombre" name="nombre" required>
 
         <label for="nacionalidad">Nacionalidad:</label>
@@ -26,7 +27,7 @@
 
     </form>
 
-    <a href="/autores">Volver a la lista</a>
+    <a href="/autores" class="btn-volver" > ← Volver a la lista</a>
 
 </body>
 </html>
