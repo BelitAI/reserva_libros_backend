@@ -18,8 +18,7 @@ const Autor = connection.define("autor", {
     },
     fechaNacimiento: {
         type: DataTypes.DATEONLY,
-        allowNull: true,
-        
+        allowNull: true
     }
 }, {
     tableName: "autor",

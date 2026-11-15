@@ -1,66 +1,57 @@
-<!DOCTYPE html>
-<html lang="es">
+<%- include('../layout/header'); -%>
+    <div class="container">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de usuarios</title>
-</head>
+        <h1>Lista de usuarios</h1>
 
-<body>
+        <a href="/user/new">+ Nuevo usuario</a>
 
-    <h1>Lista de usuarios</h1>
+        <table>
 
-    <a href="/user/new">+ Nuevo usuario</a>
-
-    <table>
-
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Apellidos</th>
-                <th>Email</th>
-                <th>Eliminar</th>
-            </tr>
-        </thead>
-
-        <tbody>
-
-            <% usuarios.forEach(usuario=> { %>
-
+            <thead>
                 <tr>
-                    <td>
-                        <%= usuario.id %>
-                    </td>
-                    <td>
-                        <%= usuario.nombre %>
-                    </td>
-                    <td>
-                        <%= usuario.apellidos %>
-                    </td>
-                    <td>
-                        <%= usuario.mail %>
-                    </td>
-
-                    <td>
-                        <form action="/user/<%= usuario.id %>/delete" method="POST">
-                            <button type="submit">X</button>
-                        </form>
-                    </td>
-                    <td>
-                        <form action="/user/<%= usuario.id %>" method="GET">
-                            <button type="submit">Ver</button>
-                        </form>
-                    </td>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Apellidos</th>
+                    <th>Email</th>
+                    <th>Eliminar</th>
                 </tr>
+            </thead>
 
-                <% }) %>
+            <tbody>
 
-        </tbody>
+                <% usuarios.forEach(usuario=> { %>
 
-    </table>
+                    <tr>
+                        <td>
+                            <%= usuario.id %>
+                        </td>
+                        <td>
+                            <%= usuario.nombre %>
+                        </td>
+                        <td>
+                            <%= usuario.apellidos %>
+                        </td>
+                        <td>
+                            <%= usuario.mail %>
+                        </td>
 
-</body>
+                        <td>
+                            <form action="/user/<%= usuario.id %>/delete" method="POST">
+                                <button type="submit">X</button>
+                            </form>
+                        </td>
+                        <td>
+                            <form action="/user/<%= usuario.id %>" method="GET">
+                                <button type="submit">Ver</button>
+                            </form>
+                        </td>
+                    </tr>
 
-</html>
+                    <% }) %>
+
+            </tbody>
+
+        </table>
+
+    </div>
+    <%- include('../layout/footer'); -%>
