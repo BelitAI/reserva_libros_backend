@@ -3,7 +3,10 @@ import autorRepository from "../../repositories/autor.repository.js";
 // MOSTRAR TODOS LOS AUTORES
 const getAll = async (req, res) => {
     const autores = await autorRepository.obtenerTodos();
-    res.render("autor/list", { autores });
+    
+    const mensaje = req.query.mensaje || "";
+
+    res.render("autor/list", { autores, mensaje });
 };
 
 // MOSTRAR FORMULARIO PARA CREAR UN AUTOR
@@ -40,16 +43,30 @@ const update = async (req, res) => {
     res.redirect("/autores");
 };
 
-//ELIMINAR UN AUTOR
-
+// ELIMINAR UN AUTOR
 const remove = async (req, res) => {
-    const autor = await autorRepository.eliminarAutor(req.params.id);
+    try {
+        const autor = await autorRepository.eliminarAutor(req.params.id);
 
-    if(!autor) {
-        return res.status(404).send("Autor no encontrado");
+        if (!autor) {
+            return res.status(404).send("Autor no encontrado");
+        }
+
+        res.redirect("/autores");
+
+    } catch (error) {
+
+        // Comprobamos si el autor tiene libros asociados
+        if (error.name === "SequelizeForeignKeyConstraintError") {
+            const mensaje = "No se puede eliminar este autor porque tiene libros asociados.";
+
+            return res.redirect(`/autores?mensaje=${encodeURIComponent(mensaje)}`);
+        }
+
+        // Si ocurre otro error, lo mostramos en la consola
+        console.error("Error al eliminar el autor:", error);
+        res.status(500).send("Error al eliminar el autor");
     }
-
-    res.redirect("/autores");
 };
 
 

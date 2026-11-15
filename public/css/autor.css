@@ -219,6 +219,18 @@ h1 {
     color: var(--color-blanco);
 }
 
+/* MENSAJE INFORMATIVO CUANDO NO SE PUEDE BORRAR UN AUTOR */
+
+.mensaje-aviso {
+    margin: 20px 0;
+    padding: 15px;
+    background-color: var(--color-error-fondo);
+    color: var(--color-error);
+    border: 1px solid var(--color-error);
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 500;
+}
 /* =====================================
    TABLET Y ESCRITORIO
 ===================================== */
