@@ -1,46 +1,37 @@
-<!DOCTYPE html>
-<html lang="es">
+<%- include('../layout/header'); -%>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de préstamos</title>
-</head>
+<h1>Lista de préstamos</h1>
 
-<body>
+<a href="/prestamo/new">+ Nuevo préstamo</a>
 
-    <h1>Lista de préstamos</h1>
+<% if (prestamos && prestamos.length > 0) { %>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Usuario</th>
+                <th>Libro</th>
+                <th>Fecha de préstamo</th>
+                <th>Fecha de devolución</th>
+                <th></th>
+            </tr>
+        </thead>
 
-    <a href="/prestamo/new">+ Nuevo préstamo</a>
-
-    <% if (prestamos && prestamos.length > 0) { %>
-        <table border="1">
-            <thead>
+        <tbody>
+            <% prestamos.forEach(prestamo => { %>
                 <tr>
-                    <th>ID</th>
-                    <th>ID usuario</th>
-                    <th>ID libro</th>
-                    <th>Fecha de préstamo</th>
-                    <th>Fecha de devolución</th>
+                    <td><%= prestamo.id %></td>
+                    <td><%= prestamo.usuario ? prestamo.usuario.nombre + " " + prestamo.usuario.apellidos : "Desconocido" %></td>
+                    <td><%= prestamo.libro ? prestamo.libro.titulo : "Desconocido" %></td>
+                    <td><%= prestamo.fechaPrestamo %></td>
+                    <td><%= prestamo.fechaDevolucion || 'Pendiente' %></td>
+                    <td><a href="/prestamo/<%= prestamo.id %>">Ver</a></td>
                 </tr>
-            </thead>
+            <% }) %>
+        </tbody>
+    </table>
+<% } else { %>
+    <p>No hay préstamos registrados.</p>
+<% } %>
 
-            <tbody>
-                <% prestamos.forEach(prestamo => { %>
-                    <tr>
-                        <td><%= prestamo.id %></td>
-                        <td><%= prestamo.usuario_id %></td>
-                        <td><%= prestamo.libro_id %></td>
-                        <td><%= prestamo.fecha_prestamo %></td>
-                        <td><%= prestamo.fecha_devolucion || 'Pendiente' %></td>
-                    </tr>
-                <% }) %>
-            </tbody>
-        </table>
-    <% } else { %>
-        <p>No hay préstamos registrados.</p>
-    <% } %>
-
-</body>
-
-</html>
+<%- include('../layout/footer'); -%>
