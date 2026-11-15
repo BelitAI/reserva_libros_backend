@@ -12,10 +12,10 @@ router.post("/new", userViewController.createUser);
 // // ------------------ LOGIN ------------------
 
 // // Vista de login
-// router.get("/login", userViewController.loginForm);
+router.get("/login", userViewController.loginForm);
 
 // // Comprobar login
-// router.post("/login", userViewController.login);
+router.post("/login", userViewController.login);
 
 // // ------------------ R (Read) ------------------
 

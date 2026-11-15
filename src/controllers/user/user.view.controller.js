@@ -43,20 +43,18 @@ const deleteUser = async (req, res) => {
     res.redirect("/user/");
 };
 
-// const loginForm = (req, res) => {
-//     res.render("user/login");
-// };
+const loginForm = (req, res) => {
+    res.render("user/login");
+};
 
-// const login = (req, res) => {
-//     const { email, password } = req.body;
-//     const usuario = usuarios.find(usuario =>
-//         usuario.mail === email && usuario.contrasena === password
-//     );
-//     if (!usuario) {
-//         return res.send("Email o constraseña incorrectos");
-//     }
-//     res.send(`Bienvenido ${usuario.nombre} ${usuario.contrasena}`)
-// };
+const login = async (req, res) => {
+    const { email, password } = req.body;
+    const usuario = await userRepository.loguearse(email, password)
+    if (!usuario) {
+        return res.send("Email o constraseña incorrectos");
+    }
+    res.send(`Bienvenido ${usuario.nombre} ${usuario.contrasena}`)
+};
 
 export default {
     createForm,
@@ -66,6 +64,6 @@ export default {
     // updateForm,
     // update,
     deleteUser,
-    // login,
-    // loginForm
+    login,
+    loginForm
 }

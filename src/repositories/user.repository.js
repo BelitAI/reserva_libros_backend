@@ -6,7 +6,9 @@ import Autor from "../models/autor.model.js"
 // ------------------ R (Read)---------------------------------------------
 // endpoint lista de datos
 const getAll = async () => {
-    const users = await Usuario.findAll();
+    const users = await Usuario.findAll({
+        order: [["id", "ASC"]]
+    });
     return users;
 };
 
@@ -36,7 +38,6 @@ const getById = async (id) => {
 }
 
 const createUser = async (data) => {
-    console.log(data);
     await Usuario.create(data);
 }
 
@@ -49,12 +50,18 @@ const removeUser = async (id) => {
     return null;
 }
 
-const loginUser = async (email) => {
+const loguearse = async (email, contrasena) => {
     const user = await Usuario.findOne({
         where: {
-            email: email
+            mail: email
         }
     });
+    if (!user) {
+        return null;
+    }
+    if (user.contrasena != contrasena) {
+        return null;
+    }
 
     return user;
 };
@@ -64,5 +71,5 @@ export default {
     getById,
     createUser,
     removeUser,
-    loginUser
+    loguearse
 }
