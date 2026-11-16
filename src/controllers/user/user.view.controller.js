@@ -57,11 +57,10 @@ const loginForm = (req, res) => {
 
 const login = async (req, res) => {
     const { email, password } = req.body;
-    console.log("ERERWERWERWERWER", req.body);
 
     try {
         const user = await userRepository.loguearse(email);
-        console.log("USERRRRRR", user.toJSON());
+        // console.log("USERRRRRR", user.toJSON());
 
         if (!user) {
             return redirect(res, "/user/login", { error: "Credenciales incorrectas" });
@@ -79,10 +78,15 @@ const login = async (req, res) => {
 
 };
 
-const logout = async (req, res) => {
-    req.session.destroy();
-    res.redirect("/");
-}
+const logout = (req, res) => {
+    req.session.destroy((err) => {
+        if (err) {
+            return res.status(500).send("Error al cerrar sesión");
+        }
+
+        return res.redirect("/libro");
+    });
+};
 
 export default {
     createForm,

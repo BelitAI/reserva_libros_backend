@@ -1,6 +1,7 @@
 import { Router } from "express";
 import userViewController from "../../controllers/user/user.view.controller.js"
 const router = Router();
+import { isAuthenticated } from "../../middlewares/auth.middleware.js";
 
 // // ------------------ C (Create) ------------------
 
@@ -16,11 +17,13 @@ router.get("/login", userViewController.loginForm);
 
 // // Comprobar login
 router.post("/login", userViewController.login);
+// logout
+router.post("/logout", userViewController.logout);
 
 // // ------------------ R (Read) ------------------
 
 // // Mostrar todos los usuarios
-router.get("/", userViewController.getAll);
+router.get("/", isAuthenticated ,userViewController.getAll);
 
 // // Mostrar usuario individual
 router.get("/:id", userViewController.getById);

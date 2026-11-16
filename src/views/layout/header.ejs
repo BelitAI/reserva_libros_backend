@@ -28,14 +28,23 @@
                 <a href="/user">Usuarios</a>
                 <a href="/libro">Libros</a>
                 <a href="/autores">Autores</a>
-                <% if (user) { %> <a href="">Prestamos</a><% } %>
+                <% if (user) { %> <a href="">Prestamos</a>
+                    <% } %>
 
             </div>
 
             <div class="nav-login">
-                <a href="/user/login" class="login-button">
-                    Iniciar sesión
-                </a>
+                <% if (!user) { %>
+                    <a href="/user/login" class="login-button">
+                        Iniciar sesión
+                    </a>
+                    <% } else { %>
+                        <form action="/user/logout" method="POST">
+                            <button type="submit" class="login-button">
+                                Cerrar Sesión
+                            </button>
+                        </form>
+                        <% } %>
             </div>
 
         </nav>
