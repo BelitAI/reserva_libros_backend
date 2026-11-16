@@ -117,6 +117,34 @@
     color: var(--color-blanco, #ffffff);
 }
 
+/*MENSAJE DE ELIMINACIÓN DE USUARIO */
+
+/* MENSAJE DE ÉXITO */
+
+.mensaje-exito {
+    margin: 20px 0;
+    padding: 15px;
+    background-color: #e8f0e8;
+    color: var(--color-principal-oscuro);
+    border: 1px solid var(--color-principal);
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 500;
+}
+
+/* MENSAJE DE AVISO */
+
+.mensaje-aviso {
+    margin: 20px 0;
+    padding: 15px;
+    background-color: var(--color-error-fondo);
+    color: var(--color-error);
+    border: 1px solid var(--color-error);
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 500;
+}
+
 /* =====================================
    TABLET Y ESCRITORIO
 ===================================== */

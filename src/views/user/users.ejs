@@ -1,61 +1,77 @@
 <%- include('../layout/header'); -%>
 
-<div class="pagina-usuarios">
+    <div class="pagina-usuarios">
 
-    <h1>Lista de usuarios</h1>
+        <h1>Lista de usuarios</h1>
 
-    <a href="/user/new" class="btn-nuevo-usuario">
-        + Nuevo usuario
-    </a>
+        <% if (mensaje) { %>
 
-    <div class="tabla-responsive">
-        <table class="tabla-usuarios">
+            <div class="<%= mensaje.includes('correctamente') ? 'mensaje-exito' : 'mensaje-aviso' %>">
+                <%= mensaje %>
+            </div>
 
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Apellidos</th>
-                    <th>Email</th>
-                    <th>Eliminar</th>
-                    <th>Ver</th>
-                </tr>
-            </thead>
+            <% } %>
 
-            <tbody>
+                <a href="/user/new" class="btn-nuevo-usuario">
+                    + Nuevo usuario
+                </a>
 
-                <% usuarios.forEach(usuario => { %>
+                <div class="tabla-responsive">
+                    <table class="tabla-usuarios">
 
-                    <tr>
-                        <td><%= usuario.id %></td>
-                        <td><%= usuario.nombre %></td>
-                        <td><%= usuario.apellidos %></td>
-                        <td><%= usuario.mail %></td>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Apellidos</th>
+                                <th>Email</th>
+                                <th>Eliminar</th>
+                                <th>Ver</th>
+                            </tr>
+                        </thead>
 
-                        <td>
-                            <form action="/user/<%= usuario.id %>/delete" method="POST">
-                                <button type="submit" class="btn-eliminar">
-                                    Eliminar
-                                </button>
-                            </form>
-                        </td>
+                        <tbody>
 
-                        <td>
-                            <form action="/user/<%= usuario.id %>" method="GET">
-                                <button type="submit" class="btn-ver">
-                                    Ver
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
+                            <% usuarios.forEach(usuario=> { %>
 
-                <% }) %>
+                                <tr>
+                                    <td>
+                                        <%= usuario.id %>
+                                    </td>
+                                    <td>
+                                        <%= usuario.nombre %>
+                                    </td>
+                                    <td>
+                                        <%= usuario.apellidos %>
+                                    </td>
+                                    <td>
+                                        <%= usuario.mail %>
+                                    </td>
 
-            </tbody>
+                                    <td>
+                                        <form action="/user/<%= usuario.id %>/delete" method="POST">
+                                            <button type="submit" class="btn-eliminar">
+                                                Eliminar
+                                            </button>
+                                        </form>
+                                    </td>
 
-        </table>
+                                    <td>
+                                        <form action="/user/<%= usuario.id %>" method="GET">
+                                            <button type="submit" class="btn-ver">
+                                                Ver
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+
+                                <% }) %>
+
+                        </tbody>
+
+                    </table>
+                </div>
+
     </div>
 
-</div>
-
-<%- include('../layout/footer'); -%>
+    <%- include('../layout/footer'); -%>
