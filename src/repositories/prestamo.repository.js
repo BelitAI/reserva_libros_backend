@@ -3,7 +3,8 @@ import Prestamo from "../models/prestamo.model.js";
 import Libro from "../models/libro.model.js";
 import Usuario from "../models/user.model.js";
 
-// Lógica de negocio de préstamos, compartida por el controlador de vistas y el de API.
+// Repositorio de préstamos: acceso a datos y reglas de negocio,
+// compartido por el controlador de vistas y el de API.
 
 export class PrestamoError extends Error {
     constructor(message, status = 400) {
@@ -58,20 +59,20 @@ const normalizar = (datos, base = {}) => {
 const cambiarEstado = (libro, estado, t) => libro.update({ estado }, { transaction: t });
 
 // ------------------ Lecturas ----------------------------
-export const listar = () => Prestamo.findAll({ include: incluir, order: [["id", "ASC"]] });
+const listar = () => Prestamo.findAll({ include: incluir, order: [["id", "ASC"]] });
 
-export const obtener = (id) => Prestamo.findByPk(aEntero(id, "id"), { include: incluir });
+const obtener = (id) => Prestamo.findByPk(aEntero(id, "id"), { include: incluir });
 
-export const usuariosParaFormulario = () => Usuario.findAll({ order: [["id", "ASC"]] });
+const usuariosParaFormulario = () => Usuario.findAll({ order: [["id", "ASC"]] });
 
 // Libros disponibles (+ el que ya tiene el préstamo que se está editando)
-export const librosParaFormulario = async (libroActualId = null) => {
+const librosParaFormulario = async (libroActualId = null) => {
     const libros = await Libro.findAll({ order: [["id", "ASC"]] });
     return libros.filter(l => l.estado === "disponible" || l.id === libroActualId);
 };
 
 // ------------------ Escrituras ----------------------------
-export const crear = async (datos) => {
+const crear = async (datos) => {
     const d = normalizar(datos);
     return connection.transaction(async (t) => {
         if (!(await Usuario.findByPk(d.usuarioId, { transaction: t }))) {
@@ -88,7 +89,7 @@ export const crear = async (datos) => {
 };
 
 // Sirve para PUT (datos completos) y PATCH (datos parciales).
-export const actualizar = async (id, datos) => {
+const actualizar = async (id, datos) => {
     id = aEntero(id, "id");
     return connection.transaction(async (t) => {
         const prestamo = await Prestamo.findByPk(id, { transaction: t, lock: t.LOCK.UPDATE });
@@ -117,7 +118,7 @@ export const actualizar = async (id, datos) => {
     });
 };
 
-export const eliminar = async (id) => {
+const eliminar = async (id) => {
     id = aEntero(id, "id");
     return connection.transaction(async (t) => {
         const prestamo = await Prestamo.findByPk(id, { transaction: t, lock: t.LOCK.UPDATE });
@@ -130,4 +131,35 @@ export const eliminar = async (id) => {
         await prestamo.destroy({ transaction: t });
         return prestamo;
     });
+};
+
+const devolver = async (id) => {
+    id = aEntero(id, "id");
+    return connection.transaction(async (t) => {
+        const prestamo = await Prestamo.findByPk(id, { transaction: t, lock: t.LOCK.UPDATE });
+        if (!prestamo) throw new PrestamoError("Préstamo no encontrado", 404);
+        if (prestamo.fechaDevolucion) throw new PrestamoError("El préstamo ya está devuelto", 409);
+
+        // fecha de hoy en AAAA-MM-DD (en-CA da ese formato con la hora local)
+        let hoy = new Date().toLocaleDateString("en-CA");
+        // por si el préstamo tiene fecha futura: nunca devolver antes de prestar
+        if (hoy < prestamo.fechaPrestamo) hoy = prestamo.fechaPrestamo;
+
+        const libro = await Libro.findByPk(prestamo.libroId, { transaction: t, lock: t.LOCK.UPDATE });
+        if (libro) await cambiarEstado(libro, "disponible", t);
+
+        return prestamo.update({ fechaDevolucion: hoy }, { transaction: t });
+    });
+};
+
+
+export default {
+    listar,
+    obtener,
+    usuariosParaFormulario,
+    librosParaFormulario,
+    crear,
+    actualizar,
+    eliminar,
+    devolver
 };
