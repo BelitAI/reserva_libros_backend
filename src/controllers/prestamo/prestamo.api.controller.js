@@ -1,5 +1,4 @@
-import * as service from "../../services/prestamo.service.js";
-import { PrestamoError } from "../../services/prestamo.service.js";
+import prestamoRepository, { PrestamoError } from "../../repositories/prestamo.repository.js";
 
 // Convierte los errores de negocio en respuestas JSON; el resto se propaga (500).
 const responderError = (res, error) => {
@@ -15,7 +14,7 @@ const responderError = (res, error) => {
 // endpoint para crear dato
 const create = async (req, res) => {
     try {
-        const prestamo = await service.crear(req.body);
+        const prestamo = await prestamoRepository.crear(req.body);
         res.status(201).json({ data: prestamo });
     } catch (error) {
         responderError(res, error);
@@ -25,14 +24,14 @@ const create = async (req, res) => {
 // ------------------ R (Read)---------------------------------------------
 // endpoint lista de datos
 const getAll = async (req, res) => {
-    const prestamos = await service.listar();
+    const prestamos = await prestamoRepository.listar();
     res.json({ data: prestamos });
 };
 
 // endpoint dato individual
 const getById = async (req, res) => {
     try {
-        const prestamo = await service.obtener(req.params.id);
+        const prestamo = await prestamoRepository.obtener(req.params.id);
         if (!prestamo) {
             return res.status(404).json({ error: "Préstamo no encontrado" });
         }
@@ -50,7 +49,7 @@ const update = async (req, res) => {
         if (usuario === undefined || libro === undefined || fechaPrestamo === undefined) {
             return res.status(400).json({ error: "PUT requiere usuario, libro y fechaPrestamo" });
         }
-        const prestamo = await service.actualizar(req.params.id, {
+        const prestamo = await prestamoRepository.actualizar(req.params.id, {
             ...req.body,
             fechaDevolucion: req.body.fechaDevolucion ?? null
         });
@@ -63,7 +62,7 @@ const update = async (req, res) => {
 // endpoint para cambiar parte del dato
 const modify = async (req, res) => {
     try {
-        const prestamo = await service.actualizar(req.params.id, req.body);
+        const prestamo = await prestamoRepository.actualizar(req.params.id, req.body);
         res.json({ data: prestamo });
     } catch (error) {
         responderError(res, error);
@@ -74,7 +73,16 @@ const modify = async (req, res) => {
 
 const remove = async (req, res) => {
     try {
-        const prestamo = await service.eliminar(req.params.id);
+        const prestamo = await prestamoRepository.eliminar(req.params.id);
+        res.json({ data: prestamo });
+    } catch (error) {
+        responderError(res, error);
+    }
+};
+
+const devolver = async (req, res) => {
+    try {
+        const prestamo = await prestamoRepository.devolver(req.params.id);
         res.json({ data: prestamo });
     } catch (error) {
         responderError(res, error);
@@ -88,5 +96,6 @@ export default {
     getById,
     update,
     modify,
-    remove
+    remove,
+    devolver
 }
