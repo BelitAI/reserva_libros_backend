@@ -14,7 +14,7 @@ const app = express();
 // Middlewares 
 app.use(cors())
 app.use(express.json()) // permite leer el body de los POST en json
-app.use(express.urlencoded()) // permite leer el body de los POST en formularios
+app.use(express.urlencoded({extends: true})) // permite leer el body de los POST en formularios
 
 app.use(express.static("public"));
 

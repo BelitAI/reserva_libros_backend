@@ -1,0 +1,39 @@
+<%- include('../layout/header'); -%>
+
+<div class="contenedor-libros-autor">
+
+    <h1>Libros de <%= autor.nombre %></h1>
+
+    <% if (autor.libros.length > 0) { %>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Título</th>
+                    <th>Género</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <% autor.libros.forEach(libro => { %>
+                    <tr>
+                        <td><%= libro.titulo %></td>
+                        <td><%= libro.genero %></td>
+                        <td><%= libro.estado %></td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+
+    <% } else { %>
+
+        <p>Este autor todavía no tiene libros registrados.</p>
+
+    <% } %>
+
+    <a href="/autores" class="btn-volver">← Volver a autores</a>
+
+</div>
+
+<%- include('../layout/footer'); -%>

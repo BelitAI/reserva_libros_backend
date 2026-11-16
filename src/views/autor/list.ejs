@@ -1,36 +1,112 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de autores</title>
-</head>
-<body>
+<%- include('../layout/header'); -%>
+    <div class="pagina-autores">
 
-    <h1>Lista de autores</h1>
+        <h1>Lista de autores</h1>
 
-    <table border="1">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Nacionalidad</th>
-                <th>Fecha de nacimiento</th>
-            </tr>
-        </thead>
+        <!--Mostramos el mensaje de que no se puede eliminar ese autor
+        porque está asociado a un libro-->
 
-        <tbody>
-            <% autores.forEach(autor => { %>
-                <tr>
-                    <td><%= autor.id %></td>
-                    <td><%= autor.nombre %></td>
-                    <td><%= autor.nacionalidad %></td>
-                    <td><%= autor.fecha_nacimiento %></td>
+        <% if (mensaje) { %>
+            <div class="mensaje-aviso">
+                <%= mensaje %>
+            </div>
+            <% } %>
 
-                </tr>
-            <% }); %>
-        </tbody>
-    </table>
+                <!-- Enlace para añadir un nuevo autor -->
+                <a href="/autores/nuevo" class="btn-principal">
+                    + Añadir autor
+                </a>
 
-</body>
-</html>
+                <!-- Tabla de autores -->
+                <div class="contenedor-tabla">
+
+                    <table class="tabla-autores">
+
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Nacionalidad</th>
+                                <th>Fecha de nacimiento</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            <% autores.forEach(autor=> { %>
+
+                                <tr>
+                                    <td>
+                                        <%= autor.id %>
+                                    </td>
+                                    <td>
+                                        <%= autor.nombre %>
+                                    </td>
+                                    <td>
+                                        <%= autor.nacionalidad || '-' %>
+                                    </td>
+                                    <td>
+                                        <%= autor.fechaNacimiento || '-' %>
+                                    </td>
+
+                                    <td>
+                                        <!-- Editar autor -->
+                                        <a class="btn-editar" href="/autores/editar/<%= autor.id %>">
+                                            Editar
+                                        </a>
+
+                                        <!-- Eliminar autor -->
+                                        <button type="button" class="btn-eliminar"
+                                            data-url="/autores/eliminar/<%= autor.id %>">
+                                            Eliminar
+                                        </button>
+
+                                        <a href="/autores/autor/<%= autor.id %>" class="btn-editar">
+                                            Ver libros
+                                        </a>
+                                    </td>
+                                </tr>
+
+                                <% }); %>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+    </div>
+
+    <!-- Ventana de confirmación Modsl-->
+    <div id="modal-eliminar" class="modal">
+
+        <div class="modal-contenido">
+
+            <h2>¿Eliminar autor?</h2>
+
+            <p>
+                ¿Estás seguro de que quieres eliminar este autor?
+                Esta acción no se puede deshacer.
+            </p>
+
+            <div class="modal-acciones">
+
+                <button type="button" id="cancelar-eliminar">
+                    Cancelar
+                </button>
+
+                <button type="button" id="confirmar-eliminar">
+                    Sí, eliminar
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Archivo JavaScript externo -->
+    <script src="/js/autor.js" defer></script>
+
+    <%- include('../layout/footer'); -%>
