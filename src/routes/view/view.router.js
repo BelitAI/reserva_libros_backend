@@ -2,11 +2,13 @@ import { Router } from "express";
 import userRouter from "./user.router.js";
 import autorRouter from "./autor.router.js";
 import prestamoRouter from "./prestamo.router.js";
+import libroRouter from "./libro.router.js";
 import {  } from "./user.router.js";
 
 const router  = Router();
 
 router.use("/user", userRouter);
+router.use("/libro", libroRouter);
 router.use("/autores", autorRouter)
 router.use("/prestamo", prestamoRouter);
 
