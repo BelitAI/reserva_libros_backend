@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import router from "./routes/router.js";
 import connection from "./config/db.js";
+import { formatearFecha } from "./utils/fecha.js";
 
 
 dotenv.config();
@@ -20,6 +21,9 @@ app.use(express.static("public"));
 
 app.set("views", "./src/views");
 app.set("view engine", "ejs");
+
+// disponible en todas las vistas: <%= fecha(valor) %> -> DD/MM/AAAA
+app.locals.fecha = formatearFecha;
 
 app.use("/", router);
 
