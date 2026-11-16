@@ -1,72 +1,126 @@
+/* =================================
+   LOGIN - MOBILE FIRST
+================================= */
 
 .loginContainer {
-    flex: 1;
+    width: 90%;
+    max-width: 500px;
+    margin: 40px auto;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .login {
-    background-color: white;
-    width: 350px;
-    padding: 30px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    width: 100%;
+    padding: 25px 20px;
+    background-color: var(--color-blanco, #ffffff);
+    border: 1px solid var(--color-borde, #ccd6cc);
+    border-radius: 12px;
+    box-shadow: 0 3px 12px var(--color-sombra, rgba(0, 0, 0, 0.08));
+    box-sizing: border-box;
 }
 
 .login h1 {
     text-align: center;
-    color: #333;
+    color: var(--color-principal-oscuro, #315c43);
     margin-bottom: 10px;
 }
 
-.login p {
+.login-descripcion {
     text-align: center;
-    color: #666;
-    margin-bottom: 25px;
+    color: var(--color-texto, #333333);
+    margin-bottom: 30px;
 }
 
-.login label {
+/* FORMULARIO */
+
+.formulario-login label {
     display: block;
     margin-bottom: 8px;
-    color: #333;
+    color: var(--color-texto, #333333);
+    font-weight: 600;
 }
 
-.login input {
+.formulario-login input {
     width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid var(--color-borde, #ccd6cc);
+    border-radius: 6px;
     box-sizing: border-box;
-    margin-bottom: 15px;
-}
-
-.login input:focus {
-    outline: none;
-    border-color: #64748b;
-}
-
-.login button {
-    width: 100%;
-    padding: 11px;
-    background-color: #334155;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
     font-size: 15px;
 }
 
-.login button:hover {
-    background-color: #1e293b;
+.formulario-login input:focus {
+    outline: none;
+    border-color: var(--color-principal, #39764f);
+    box-shadow: 0 0 0 3px var(--color-enfoque, rgba(57, 118, 79, 0.15));
 }
 
-.login a {
-    color: #2563eb;
+/* BOTÓN */
+
+.formulario-login button {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--color-principal, #39764f);
+    color: var(--color-blanco, #ffffff);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.formulario-login button:hover {
+    background-color: var(--color-principal-oscuro, #315c43);
+}
+
+/* REGISTRO */
+
+.login-registro {
+    text-align: center;
+    margin-top: 25px;
+    color: var(--color-texto, #333333);
+}
+
+.login-registro a {
+    color: var(--color-principal, #39764f);
+    font-weight: 600;
     text-decoration: none;
 }
 
-.login a:hover {
+.login-registro a:hover {
+    color: var(--color-principal-oscuro, #315c43);
     text-decoration: underline;
+}
+
+
+/* =================================
+   ESCRITORIO
+================================= */
+
+@media (min-width: 768px) {
+
+    .loginContainer {
+        max-width: 480px;
+        margin: 60px auto;
+    }
+
+    .login {
+        padding: 40px;
+    }
+
+    .login h1 {
+        font-size: 28px;
+    }
+
+    .formulario-login input {
+        padding: 13px;
+    }
+
+    .formulario-login button {
+        padding: 13px;
+    }
 }

@@ -1,11 +1,15 @@
 <%- include('../layout/header'); -%>
-    <div class="container">
 
-        <h1>Lista de usuarios</h1>
+<div class="pagina-usuarios">
 
-        <a href="/user/new">+ Nuevo usuario</a>
+    <h1>Lista de usuarios</h1>
 
-        <table>
+    <a href="/user/new" class="btn-nuevo-usuario">
+        + Nuevo usuario
+    </a>
+
+    <div class="tabla-responsive">
+        <table class="tabla-usuarios">
 
             <thead>
                 <tr>
@@ -14,44 +18,44 @@
                     <th>Apellidos</th>
                     <th>Email</th>
                     <th>Eliminar</th>
+                    <th>Ver</th>
                 </tr>
             </thead>
 
             <tbody>
 
-                <% usuarios.forEach(usuario=> { %>
+                <% usuarios.forEach(usuario => { %>
 
                     <tr>
-                        <td>
-                            <%= usuario.id %>
-                        </td>
-                        <td>
-                            <%= usuario.nombre %>
-                        </td>
-                        <td>
-                            <%= usuario.apellidos %>
-                        </td>
-                        <td>
-                            <%= usuario.mail %>
-                        </td>
+                        <td><%= usuario.id %></td>
+                        <td><%= usuario.nombre %></td>
+                        <td><%= usuario.apellidos %></td>
+                        <td><%= usuario.mail %></td>
 
                         <td>
                             <form action="/user/<%= usuario.id %>/delete" method="POST">
-                                <button type="submit">X</button>
+                                <button type="submit" class="btn-eliminar">
+                                    Eliminar
+                                </button>
                             </form>
                         </td>
+
                         <td>
                             <form action="/user/<%= usuario.id %>" method="GET">
-                                <button type="submit">Ver</button>
+                                <button type="submit" class="btn-ver">
+                                    Ver
+                                </button>
                             </form>
                         </td>
                     </tr>
 
-                    <% }) %>
+                <% }) %>
 
             </tbody>
 
         </table>
-
     </div>
-    <%- include('../layout/footer'); -%>
+
+</div>
+
+<%- include('../layout/footer'); -%>

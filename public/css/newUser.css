@@ -1,80 +1,131 @@
 /* FORMULARIO DE REGISTRO */
+
+/* CONTENEDOR PRINCIPAL */
+
 .containerNewUser {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
+    width: 90%;
+    max-width: 550px;
+    margin: 40px auto;
 }
 
-.formContainer{
-    width: 500px;
-    margin: 0 auto;
-    background-color: white;
-    padding: 30px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+/* CAJA DEL FORMULARIO */
+
+.formContainer {
+    width: 100%;
+    padding: 25px 20px;
+    background-color: var(--color-blanco, #ffffff);
+    border: 1px solid var(--color-borde, #ccd6cc);
+    border-radius: 12px;
+    box-shadow: 0 3px 12px var(--color-sombra, rgba(0, 0, 0, 0.08));
+    box-sizing: border-box;
 }
+
+/* TÍTULO */
 
 .formContainer h1 {
+    text-align: center;
+    color: var(--color-principal-oscuro, #315c43);
     margin-bottom: 10px;
 }
 
-.formContainer>p {
+/* TEXTO DESCRIPTIVO */
+
+.registro-descripcion {
     text-align: center;
-    color: #666;
-    margin-bottom: 25px;
+    color: var(--color-texto, #333333);
+    margin-bottom: 30px;
 }
 
+/* CAMPOS DEL FORMULARIO */
+
 .formGroup {
-    margin-bottom: 18px;
+    margin-bottom: 20px;
 }
 
 .formGroup label {
     display: block;
     margin-bottom: 8px;
-    color: #333;
+    color: var(--color-texto, #333333);
+    font-weight: 600;
 }
 
 .formGroup input {
     width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    padding: 12px;
+    border: 1px solid var(--color-borde, #ccd6cc);
+    border-radius: 6px;
     box-sizing: border-box;
-}
-
-.formGroup input:focus {
-    outline: none;
-    border-color: #64748b;
-}
-
-.formButton {
-    width: 100%;
-    padding: 11px;
-    background-color: #334155;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
     font-size: 15px;
 }
 
-.formButton:hover {
-    background-color: #1e293b;
+/* EFECTO AL SELECCIONAR UN CAMPO */
+
+.formGroup input:focus {
+    outline: none;
+    border-color: var(--color-principal, #39764f);
+    box-shadow: 0 0 0 3px var(--color-enfoque, rgba(57, 118, 79, 0.15));
 }
+
+/* BOTÓN */
+
+.formButton {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--color-principal, #39764f);
+    color: var(--color-blanco, #ffffff);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.formButton:hover {
+    background-color: var(--color-principal-oscuro, #315c43);
+}
+
+/* ENLACE PARA INICIAR SESIÓN */
 
 .formFooter {
     margin-top: 25px;
     text-align: center;
+    color: var(--color-texto, #333333);
 }
 
 .formFooter a {
-    color: #2563eb;
+    color: var(--color-principal, #39764f);
+    font-weight: 600;
     text-decoration: none;
 }
 
 .formFooter a:hover {
+    color: var(--color-principal-oscuro, #315c43);
     text-decoration: underline;
+}
+
+/* TABLETS Y ORDENADORES */
+
+@media (min-width: 768px) {
+
+    .containerNewUser {
+        max-width: 550px;
+        margin: 60px auto;
+    }
+
+    .formContainer {
+        padding: 40px;
+    }
+
+    .formContainer h1 {
+        font-size: 28px;
+    }
+
+    .formGroup input {
+        padding: 13px;
+    }
+
+    .formButton {
+        padding: 13px;
+    }
 }
