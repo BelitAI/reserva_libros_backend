@@ -71,13 +71,18 @@ const login = async (req, res) => {
             return redirect(res, "/user/login", { error: "Credenciales incorrectas" });
         }
         req.session.user = { userId: user.id, role: user.esAdmin };
-        redirect(res, "/", { message: "Login exitoso" });
+        redirect(res, "/user", { message: "Login exitoso" });
     } catch (error) {
         console.error(error);
         redirect(res, "/user/login", { error: "Ha habido un error en el Login" });
     }
 
 };
+
+const logout = async (req, res) => {
+    req.session.destroy();
+    res.redirect("/");
+}
 
 export default {
     createForm,
@@ -88,5 +93,6 @@ export default {
     // update,
     deleteUser,
     login,
-    loginForm
+    loginForm,
+    logout
 }

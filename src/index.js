@@ -21,7 +21,13 @@ app.use(session({ // solo para cuando tenemos vistas
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false
-}))
+}));
+
+app.use((req,res,next)=>{
+    res.locals.query = req.query;
+    res.locals.user = req.session?.user;
+    next();
+});
 
 app.use(express.static("public"));
 
