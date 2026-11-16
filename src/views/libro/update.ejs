@@ -1,0 +1,97 @@
+<%- include('../layout/header') %>
+
+<link rel="stylesheet" href="/css/libros.css">
+
+<section class="libros-page">
+
+    <h2>Editar libro</h2>
+
+    <% if (libro) { %>
+
+        <form action="/libro/<%= libro.id %>/edit" method="post" class="libros-form">
+
+            <!-- Título -->
+            <label for="titulo">Título</label>
+
+            <input
+                type="text"
+                id="titulo"
+                name="titulo"
+                value="<%= libro.titulo %>"
+                required
+            >
+
+            <!-- Autor -->
+            <label for="autor_id">Autor</label>
+
+            <select id="autor_id" name="autor_id" class="select-scroll" required>
+
+                <option value="">Selecciona un autor</option>
+
+                <% for (const autor of autores) { %>
+
+                    <option
+                        value="<%= autor.id %>"
+                        <%= Number(libro.autorId ?? libro.autor_id) === Number(autor.id) ? 'selected' : '' %>
+                    >
+                        <%= autor.nombre %>
+                    </option>
+
+                <% } %>
+
+            </select>
+
+            <!-- Género literario -->
+            <label for="genero">Género literario</label>
+
+            <select id="genero" name="genero" class="select-scroll" required>
+
+                <option value="">Selecciona un género</option>
+
+                <% const generos = [
+                    "Novela",
+                    "Ciencia ficción",
+                    "Fantasía",
+                    "Misterio",
+                    "Terror",
+                    "Romance",
+                    "Aventura",
+                    "Histórica",
+                    "Poesía",
+                    "Biografía",
+                    "Ensayo",
+                    "Realismo mágico",
+                    "Sátira política",
+                    "Otros"
+                ]; %>
+
+                <% for (const genero of generos) { %>
+
+                    <option
+                        value="<%= genero %>"
+                        <%= libro.genero === genero ? 'selected' : '' %>
+                    >
+                        <%= genero %>
+                    </option>
+
+                <% } %>
+
+            </select>
+
+            <button type="submit">Guardar cambios</button>
+
+        </form>
+
+    <% } else { %>
+
+        <p>No existe el libro.</p>
+
+    <% } %>
+
+    <a href="/libro" class="libros-boton">Volver a los libros</a>
+
+</section>
+
+<script src="/js/libros-select.js" defer></script>
+
+<%- include('../layout/footer') %>
