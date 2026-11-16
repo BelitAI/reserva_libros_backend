@@ -6,8 +6,10 @@
     </p>
     <p>Estado: <%= libro.estado %>
     </p>
-    <a href="/libro/<%= libro.id %>">Ver detalle</a>
-    <form method="post" action="/libro/<%= libro.id %>/delete">
-        <button type="submit">Eliminar libro</button>
-    </form>
+    <% if (!locals.ocultarDetalle) { %>
+        <a href="/libro/<%= libro.id %>">Ver detalle</a>
+        <% } %>
+            <form method="post" action="/libro/<%= libro.id %>/delete">
+                <button type="submit">Eliminar libro</button>
+            </form>
 </article>
