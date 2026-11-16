@@ -27,6 +27,27 @@
         <%= usuario.es_admin ? "Sí" : "No" %>
     </p>
 
+    <h2>Pedidos</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Libro</th>
+                <th>Autor</th>
+                <th>Fecha de préstamo</th>
+                <th>Fecha de devolución</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% usuario.prestamos.forEach(prestamo=> { %>
+                <tr>
+                    <td><%= prestamo.libro.titulo %></td>
+                    <td><%= prestamo.libro.autor.nombre %></td>
+                    <td><%= prestamo.fechaPrestamo %></td>
+                    <td><%= prestamo.fechaDevolucion===null ? "Sin devolución" : prestamo.fechaVencimiento %></td>
+                </tr>
+                <% }) %>
+        </tbody>
+    </table>
     <a href="/user/">Volver a usuarios</a>
 
 </body>
