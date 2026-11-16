@@ -42,8 +42,8 @@
                 <tr>
                     <td><%= prestamo.libro.titulo %></td>
                     <td><%= prestamo.libro.autor.nombre %></td>
-                    <td><%= prestamo.fechaPrestamo %></td>
-                    <td><%= prestamo.fechaDevolucion===null ? "Sin devolución" : prestamo.fechaVencimiento %></td>
+                    <td><%= fecha(prestamo.fechaPrestamo) %></td>
+                    <td><%= fecha(prestamo.fechaDevolucion, "Sin devolución") %></td>
                 </tr>
                 <% }) %>
         </tbody>

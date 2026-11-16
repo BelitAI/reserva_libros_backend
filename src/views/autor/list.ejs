@@ -12,13 +12,13 @@
             </div>
             <% } %>
 
-        <!-- SI EL USUARIO TIENE LIBRO PRESTADO NO SE PUEDE ELIMINAR Y SI  NO TIENE SE ELIMINA-->
-    
+                <!-- SI EL USUARIO TIENE LIBRO PRESTADO NO SE PUEDE ELIMINAR Y SI  NO TIENE SE ELIMINA-->
+
                 <% if (mensaje) { %>
                     <div class="mensaje-exito">
                         <%= mensaje %>
                     </div>
-                <% } %>
+                    <% } %>
 
                         <!-- Enlace para añadir un nuevo autor -->
                         <a href="/autores/nuevo" class="btn-principal">
@@ -43,6 +43,19 @@
                                 <tbody>
 
                                     <% autores.forEach(autor=> { %>
+                                        <tr>
+                                            <td>
+                                                <%= autor.id %>
+                                            </td>
+                                            <td>
+                                                <%= autor.nombre %>
+                                            </td>
+                                            <td>
+                                                <%= autor.nacionalidad || '-' %>
+                                            </td>
+                                            <td>
+                                                <%= fecha(autor.fechaNacimiento) %>
+                                            </td>
 
                                         <tr>
                                             <td>

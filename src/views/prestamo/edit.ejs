@@ -1,35 +1,42 @@
 <%- include('../layout/header'); -%>
 
-<h2>Editar préstamo #<%= prestamo.id %>:</h2>
-<% if (error) { %>
-    <p class="error"><%= error %></p>
-<% } %>
-<form action="/prestamo/<%= prestamo.id %>/edit" method="post">
-    <label for="usuario">Usuario</label>
-    <select name="usuario" id="usuario" required>
-        <% for (const usuario of usuarios) { %>
-            <option value="<%= usuario.id %>" <%= usuario.id === prestamo.usuarioId ? "selected" : "" %>>
-                <%= usuario.nombre %> <%= usuario.apellidos %>
-            </option>
-        <% } %>
-    </select>
+<div class="contenedor-formulario">
+    <h1>Editar préstamo #<%= prestamo.id %></h1>
 
-    <label for="libro">Libro</label>
-    <select name="libro" id="libro" required>
-        <% for (const libro of libros) { %>
-            <option value="<%= libro.id %>" <%= libro.id === prestamo.libroId ? "selected" : "" %>>
-                <%= libro.titulo %>
-            </option>
-        <% } %>
-    </select>
+    <% if (error) { %>
+        <p class="mensaje-aviso"><%= error %></p>
+    <% } %>
 
-    <label for="fechaPrestamo">Fecha de préstamo</label>
-    <input type="date" name="fechaPrestamo" id="fechaPrestamo" value="<%= prestamo.fechaPrestamo %>" required>
+    <form class="formulario" action="/prestamo/<%= prestamo.id %>/edit" method="post">
 
-    <label for="fechaDevolucion">Fecha de devolución</label>
-    <input type="date" name="fechaDevolucion" id="fechaDevolucion" value="<%= prestamo.fechaDevolucion || '' %>">
+        <label for="usuario">Usuario</label>
+        <select name="usuario" id="usuario" required>
+            <% for (const usuario of usuarios) { %>
+                <option value="<%= usuario.id %>" <%= usuario.id === prestamo.usuarioId ? "selected" : "" %>>
+                    <%= usuario.nombre %> <%= usuario.apellidos %>
+                </option>
+            <% } %>
+        </select>
 
-    <button>Guardar</button>
-</form>
-<a href="/prestamo/<%= prestamo.id %>">Volver</a>
+        <label for="libro">Libro</label>
+        <select name="libro" id="libro" required>
+            <% for (const libro of libros) { %>
+                <option value="<%= libro.id %>" <%= libro.id === prestamo.libroId ? "selected" : "" %>>
+                    <%= libro.titulo %>
+                </option>
+            <% } %>
+        </select>
+
+        <label for="fechaPrestamo">Fecha de préstamo</label>
+        <input type="date" name="fechaPrestamo" id="fechaPrestamo" value="<%= prestamo.fechaPrestamo %>" required>
+
+        <label for="fechaDevolucion">Fecha de devolución</label>
+        <input type="date" name="fechaDevolucion" id="fechaDevolucion" value="<%= prestamo.fechaDevolucion || '' %>">
+
+        <button>Guardar</button>
+    </form>
+
+    <a href="/prestamo/<%= prestamo.id %>" class="btn-volver">← Volver</a>
+</div>
+
 <%- include('../layout/footer'); -%>
