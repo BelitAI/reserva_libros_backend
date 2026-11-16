@@ -1,4 +1,15 @@
-/* Contenedor de las páginas de libros */
+/* =====================================
+   VARIABLES DE COLORES
+===================================== */
+
+:root {
+    --color-principal: #39764f;
+    --color-principal-oscuro: #315c43;
+    --color-blanco: #ffffff;
+    --color-error: #b42318;
+    --color-error-fondo: #fce8e6;
+}
+
 .libros-page {
     box-sizing: border-box;
     width: 100%;
@@ -38,9 +49,14 @@
     line-height: 1.5;
 }
 
-/* Enlaces y botones */
-.libros-page a {
-    color: #1d4ed8;
+/* Enlaces de texto */
+.libros-page a:not(.libros-boton) {
+    color: var(--color-principal);
+    text-decoration: none;
+}
+
+.libros-page a:not(.libros-boton):hover {
+    text-decoration: underline;
 }
 
 .libros-page button,
@@ -49,8 +65,8 @@
     padding: 10px 16px;
     border: 0;
     border-radius: 6px;
-    background-color: #2563eb;
-    color: white;
+    background-color: var(--color-principal);
+    color: var(--color-blanco);
     font: inherit;
     text-decoration: none;
     cursor: pointer;
@@ -58,7 +74,19 @@
 
 .libros-page button:hover,
 .libros-page .libros-boton:hover {
-    background-color: #1d4ed8;
+    background-color: var(--color-principal-oscuro);
+}
+
+/* Botón para eliminar un libro */
+.libros-page .libros-eliminar {
+    background-color: var(--color-error-fondo);
+    color: var(--color-error);
+    font-weight: bold;
+}
+
+.libros-page .libros-eliminar:hover {
+    background-color: var(--color-error);
+    color: var(--color-blanco);
 }
 
 .libros-page .libro-card form {
