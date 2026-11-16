@@ -1,10 +1,23 @@
 <%- include('../layout/header') %>
 
-<% if (libro) { %>
-    <%- include('libroCard', { libro }) %>
-    <a href="/libro/<%= libro.id %>/edit">Editar libro</a>
-<% } else { %>
-    <p>No existe el libro.</p>
-<% } %>
-<a href="/libro">Volver a los libros</a>
+<link rel="stylesheet" href="/css/libros.css">
+
+<section class="libros-page">
+    <h2>Detalle del libro</h2>
+
+    <% if (libro) { %>
+        <%- include('libroCard', { libro }) %>
+
+        <div class="libros-acciones">
+            <a href="/libro/<%= libro.id %>/edit"
+               class="libros-boton">Editar libro</a>
+
+            <a href="/libro">Volver a los libros</a>
+        </div>
+    <% } else { %>
+        <p>No existe el libro.</p>
+        <a href="/libro">Volver a los libros</a>
+    <% } %>
+</section>
+
 <%- include('../layout/footer') %>
