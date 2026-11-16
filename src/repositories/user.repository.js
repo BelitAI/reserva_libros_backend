@@ -29,10 +29,6 @@ const getById = async (id) => {
             }]
         }]
     });
-    console.log("pepepeepep", user.toJSON());
-    user.prestamos.forEach(prestamo => {
-        console.log(prestamo.libro.toJSON());
-    });
 
     return user;
 }
