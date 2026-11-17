@@ -15,6 +15,7 @@ router.get("/:id", prestamoApiController.getById);
 // ---------------- U (Update) -----------------------------------
 router.put("/:id", prestamoApiController.update);
 router.patch("/:id", prestamoApiController.modify);
+router.patch("/:id/return", prestamoApiController.devolver);
 
 // ------------------------ D (Delete)------------
 router.delete("/:id", prestamoApiController.remove);
