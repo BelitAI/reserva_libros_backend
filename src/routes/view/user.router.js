@@ -27,7 +27,7 @@ router.post("/logout", userViewController.logout);
 router.get("/", isAuthenticated, isAdmin, userViewController.getAll);
 
 // // Mostrar usuario individual
-router.get("/:id", isAuthenticated, isAdmin, userViewController.getById);
+router.get("/:id", userViewController.getById);
 
 
 // // ------------------ U (Update) ------------------
