@@ -12,7 +12,7 @@ const router  = Router();
 router.use("/user", userRouter);
 router.use("/libro", libroRouter);
 router.use("/autores", autorRouter)
-router.use("/prestamo",isAuthenticated, isAdmin, prestamoRouter);
+router.use("/prestamo",isAuthenticated, prestamoRouter);
 
 
 export default router;

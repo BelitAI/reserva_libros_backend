@@ -26,7 +26,7 @@
             </a>
 
             <div class="nav-links">
-                <% if (user) { %>
+                <% if (user && user.role === true) { %>
                     <a href="/user">Usuarios</a>
                     <% } %>
                         <a href="/libro">Libros</a>

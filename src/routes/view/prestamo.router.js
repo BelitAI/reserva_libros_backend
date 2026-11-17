@@ -17,7 +17,7 @@ router.post("/", prestamoViewController.create);
 
 // ------------------ R (Read)---------------------------------------------
 // endpoint lista de datos
-router.get("/",isAuthenticated, prestamoViewController.getAll);
+router.get("/", prestamoViewController.getAll);
 
 // endpoint dato individual
 router.get("/:id", prestamoViewController.getById);
