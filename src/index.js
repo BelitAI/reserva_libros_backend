@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import router from "./routes/router.js";
 import connection from "./config/db.js";
+import session from "express-session";
 import { formatearFecha } from "./utils/fecha.js";
 
 
@@ -15,7 +16,19 @@ const app = express();
 // Middlewares 
 app.use(cors())
 app.use(express.json()) // permite leer el body de los POST en json
-app.use(express.urlencoded({extends: true})) // permite leer el body de los POST en formularios
+app.use(express.urlencoded({ extends: true })) // permite leer el body de los POST en formularios
+
+app.use(session({ // solo para cuando tenemos vistas
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false
+}));
+
+app.use((req,res,next)=>{
+    res.locals.query = req.query;
+    res.locals.user = req.session?.user;
+    next();
+});
 
 app.use(express.static("public"));
 
@@ -42,9 +55,9 @@ async function startServer(params) {
             console.error(`Intento ${maxAttempts - attempts} No se ha podido conectar a la base de datos`, error);
         }
         attempts--;
-        await new Promise((resolve,reject)=>setTimeout(()=>{resolve()},5000));
+        await new Promise((resolve, reject) => setTimeout(() => { resolve() }, 5000));
     }
-    if(attempts === 0){
+    if (attempts === 0) {
         console.error(`no se ha podido conectar a la base de datos en ${maxAttempts} intentos`);
         process.exit(1);
     }
