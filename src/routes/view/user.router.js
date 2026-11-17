@@ -10,7 +10,7 @@ import { isAdmin } from "../../middlewares/isAdmin.middleware.js";
 router.get("/new", isAuthenticated, isAdmin, userViewController.createForm);
 
 // // Crear usuario
-router.post("/new", isAuthenticated, isAdmin, userViewController.createUser);
+router.post("/new", userViewController.createUser);
 // // ------------------ LOGIN ------------------
 
 // // Vista de login
@@ -24,10 +24,10 @@ router.post("/logout", userViewController.logout);
 // // ------------------ R (Read) ------------------
 
 // // Mostrar todos los usuarios
-router.get("/", userViewController.getAll);
+router.get("/", isAuthenticated, isAdmin, userViewController.getAll);
 
 // // Mostrar usuario individual
-router.get("/:id", userViewController.getById);
+router.get("/:id", isAuthenticated, isAdmin, userViewController.getById);
 
 
 // // ------------------ U (Update) ------------------
