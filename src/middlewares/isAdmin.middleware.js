@@ -4,3 +4,7 @@ const isAdmin = (req, res, next)=>{
     }
     res.redirect("/user/login");
 }
+
+export {
+    isAdmin
+}

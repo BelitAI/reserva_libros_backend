@@ -2,14 +2,15 @@ import { Router } from "express";
 import userViewController from "../../controllers/user/user.view.controller.js"
 const router = Router();
 import { isAuthenticated } from "../../middlewares/auth.middleware.js";
+import { isAdmin } from "../../middlewares/isAdmin.middleware.js";
 
 // // ------------------ C (Create) ------------------
 
 // // Vista de creación
-router.get("/new", userViewController.createForm);
+router.get("/new", isAuthenticated, isAdmin, userViewController.createForm);
 
 // // Crear usuario
-router.post("/new", userViewController.createUser);
+router.post("/new", isAuthenticated, isAdmin, userViewController.createUser);
 // // ------------------ LOGIN ------------------
 
 // // Vista de login
@@ -23,7 +24,7 @@ router.post("/logout", userViewController.logout);
 // // ------------------ R (Read) ------------------
 
 // // Mostrar todos los usuarios
-router.get("/", isAuthenticated ,userViewController.getAll);
+router.get("/", userViewController.getAll);
 
 // // Mostrar usuario individual
 router.get("/:id", userViewController.getById);

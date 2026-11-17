@@ -60,7 +60,6 @@ const login = async (req, res) => {
 
     try {
         const user = await userRepository.loguearse(email);
-        // console.log("USERRRRRR", user.toJSON());
 
         if (!user) {
             return redirect(res, "/user/login", { error: "Credenciales incorrectas" });

@@ -40,7 +40,6 @@ const Usuario = connection.define("usuarios", {
 
 Usuario.beforeCreate(async (user) => {
   const hashedPassword = await bcrypt.hash(user.contrasena,10);
-  console.log("hash",hashedPassword,user.contrasena);
   user.contrasena = hashedPassword;
 });
 

@@ -6,7 +6,6 @@ const isAuthenticated =  (req, res, next) => {
 
 }
 
-
 export {
     isAuthenticated
 }
