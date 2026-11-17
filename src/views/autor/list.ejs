@@ -12,69 +12,76 @@
             </div>
             <% } %>
 
-                <!-- Enlace para añadir un nuevo autor -->
-                <a href="/autores/nuevo" class="btn-principal">
-                    + Añadir autor
-                </a>
+                <!-- SI EL USUARIO TIENE LIBRO PRESTADO NO SE PUEDE ELIMINAR Y SI  NO TIENE SE ELIMINA-->
 
-                <!-- Tabla de autores -->
-                <div class="contenedor-tabla">
+                <% if (mensaje) { %>
+                    <div class="mensaje-exito">
+                        <%= mensaje %>
+                    </div>
+                    <% } %>
 
-                    <table class="tabla-autores">
+                        <!-- Enlace para añadir un nuevo autor -->
+                        <a href="/autores/nuevo" class="btn-principal">
+                            + Añadir autor
+                        </a>
 
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Nombre</th>
-                                <th>Nacionalidad</th>
-                                <th>Fecha de nacimiento</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
+                        <!-- Tabla de autores -->
+                        <div class="contenedor-tabla">
 
-                        <tbody>
+                            <table class="tabla-autores">
 
-                            <% autores.forEach(autor=> { %>
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Nombre</th>
+                                        <th>Nacionalidad</th>
+                                        <th>Fecha de nacimiento</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
 
-                                <tr>
-                                    <td>
-                                        <%= autor.id %>
-                                    </td>
-                                    <td>
-                                        <%= autor.nombre %>
-                                    </td>
-                                    <td>
-                                        <%= autor.nacionalidad || '-' %>
-                                    </td>
-                                    <td>
-                                        <%= fecha(autor.fechaNacimiento) %>
-                                    </td>
+                                <tbody>
 
-                                    <td>
-                                        <!-- Editar autor -->
-                                        <a class="btn-editar" href="/autores/editar/<%= autor.id %>">
-                                            Editar
-                                        </a>
+                                    <% autores.forEach(autor=> { %>
+                                        <tr>
+                                            <td>
+                                                <%= autor.id %>
+                                            </td>
+                                            <td>
+                                                <%= autor.nombre %>
+                                            </td>
+                                            <td>
+                                                <%= autor.nacionalidad || '-' %>
+                                            </td>
+                                            <td>
+                                                <%= autor.fechaNacimiento || '-' %>
+                                            </td>
 
-                                        <!-- Eliminar autor -->
-                                        <button type="button" class="btn-eliminar"
-                                            data-url="/autores/eliminar/<%= autor.id %>">
-                                            Eliminar
-                                        </button>
+                                            <td>
+                                                <!-- Editar autor -->
+                                                <a class="btn-editar" href="/autores/editar/<%= autor.id %>">
+                                                    Editar
+                                                </a>
 
-                                        <a href="/autores/autor/<%= autor.id %>" class="btn-editar">
-                                            Ver libros
-                                        </a>
-                                    </td>
-                                </tr>
+                                                <!-- Eliminar autor -->
+                                                <button type="button" class="btn-eliminar"
+                                                    data-url="/autores/eliminar/<%= autor.id %>">
+                                                    Eliminar
+                                                </button>
 
-                                <% }); %>
+                                                <a href="/autores/autor/<%= autor.id %>" class="btn-editar">
+                                                    Ver libros
+                                                </a>
+                                            </td>
+                                        </tr>
 
-                        </tbody>
+                                        <% }); %>
 
-                    </table>
+                                </tbody>
 
-                </div>
+                            </table>
+
+                        </div>
 
     </div>
 

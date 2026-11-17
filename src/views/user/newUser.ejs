@@ -1,41 +1,52 @@
 <%- include('../layout/header'); -%>
-    <div class="containerNewUser ">
-        <div class="formContainer">
-            <h1>Crear nuevo usuario</h1>
-            <p>Introduce tus datos para registrarte.</p>
 
-            <form action="/user/new" method="POST">
+<div class="containerNewUser">
+    <div class="formContainer">
 
-                <div class="formGroup">
-                    <label for="nombre">Nombre:</label>
-                    <input type="text" id="nombre" name="nombre" placeholder="Introduce tu nombre" required>
-                </div>
+        <h1>Crear nuevo usuario</h1>
 
-                <div class="formGroup">
-                    <label for="apellidos">Apellidos:</label>
-                    <input type="text" id="apellidos" name="apellidos" placeholder="Introduce tus apellidos" required>
-                </div>
+        <p class="registro-descripcion">
+            Introduce tus datos para registrarte.
+        </p>
 
-                <div class="formGroup">
-                    <label for="mail">Correo electrónico:</label>
-                    <input type="email" id="mail" name="mail" placeholder="ejemplo@email.com" required>
-                </div>
+        <form action="/user/new" method="POST" class="formulario-registro">
 
-                <div class="formGroup">
-                    <label for="contrasena">Contraseña:</label>
-                    <input type="password" id="contrasena" name="contrasena" placeholder="Introduce tu contraseña"
-                        required>
-                </div>
+            <div class="formGroup">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre"
+                    placeholder="Introduce tu nombre" required>
+            </div>
 
-                <button type="submit" class="formButton">Crear usuario</button>
+            <div class="formGroup">
+                <label for="apellidos">Apellidos:</label>
+                <input type="text" id="apellidos" name="apellidos"
+                    placeholder="Introduce tus apellidos" required>
+            </div>
 
-            </form>
+            <div class="formGroup">
+                <label for="mail">Correo electrónico:</label>
+                <input type="email" id="mail" name="mail"
+                    placeholder="ejemplo@email.com" required>
+            </div>
 
-            <p class="formFooter">
-                ¿Ya tienes cuenta?
-                <a href="/user/login">Iniciar sesión</a>
-            </p>
+            <div class="formGroup">
+                <label for="contrasena">Contraseña:</label>
+                <input type="password" id="contrasena" name="contrasena"
+                    placeholder="Introduce tu contraseña" required>
+            </div>
 
-        </div>
+            <button type="submit" class="formButton">
+                Crear usuario
+            </button>
+
+        </form>
+
+        <p class="formFooter">
+            ¿Ya tienes cuenta?
+            <a href="/user/login">Iniciar sesión</a>
+        </p>
+
     </div>
-    <%- include('../layout/footer'); -%>
+</div>
+
+<%- include('../layout/footer'); -%>

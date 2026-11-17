@@ -1,75 +1,180 @@
-.container {
-    padding: 25px;
-    width: 100vw;
+/* =====================================
+   LISTA DE USUARIOS
+===================================== */
+
+/* CONTENEDOR PRINCIPAL */
+
+.pagina-usuarios {
+    width: 90%;
+    max-width: 1100px;
+    margin: 40px auto;
 }
 
-.container h1 {
-    color: #333;
+/* TÍTULO */
+
+.pagina-usuarios h1 {
     text-align: center;
+    color: var(--color-principal-oscuro, #315c43);
+    font-size: 25px;
     margin-bottom: 25px;
 }
 
 /* BOTÓN NUEVO USUARIO */
 
-.container > a {
+.btn-nuevo-usuario {
     display: inline-block;
-    background-color: #2563eb;
-    color: white;
+    padding: 12px 18px;
+    margin-bottom: 15px;
+    background-color: var(--color-principal, #39764f);
+    color: var(--color-blanco, #ffffff);
     text-decoration: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    margin-bottom: 20px;
+    border-radius: 7px;
+    font-weight: bold;
 }
 
-.container > a:hover {
-    background-color: #1d4ed8;
+.btn-nuevo-usuario:hover {
+    background-color: var(--color-principal-oscuro, #315c43);
+}
+
+/* CONTENEDOR RESPONSIVE DE LA TABLA */
+
+.tabla-responsive {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 20px;
+    border-radius: 10px;
 }
 
 /* TABLA */
 
-.container table {
+.tabla-usuarios {
     width: 100%;
+    min-width: 650px;
     border-collapse: collapse;
+    background-color: var(--color-blanco, #ffffff);
+    box-shadow: 0 3px 12px var(--color-sombra, rgba(0, 0, 0, 0.08));
 }
 
-.container th,
-.container td {
-    padding: 12px;
-    text-align: center;
-    border: 1px solid #ddd;
+/* ENCABEZADOS */
+
+.tabla-usuarios th {
+    padding: 14px 10px;
+    background-color: var(--color-principal, #39764f);
+    color: var(--color-blanco, #ffffff);
+    text-align: left;
+    border: 1px solid var(--color-borde, #ccd6cc);
 }
 
-.container th {
-    background-color: #1e293b;
-    color: white;
+/* CELDAS */
+
+.tabla-usuarios td {
+    padding: 12px 10px;
+    border: 1px solid var(--color-borde, #ccd6cc);
 }
 
-.container tr:nth-child(even) {
-    background-color: #f1f5f9;
+/* EFECTO AL PASAR EL RATÓN */
+
+.tabla-usuarios tbody tr:hover {
+    background-color: var(--color-hover, #e8f0e8);
 }
 
 /* BOTONES DE ACCIONES */
 
-.container button {
+.btn-ver,
+.btn-eliminar {
+    display: inline-block;
+    padding: 8px 10px;
+    margin: 3px;
     border: none;
-    padding: 8px 12px;
     border-radius: 5px;
-    color: white;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: bold;
     cursor: pointer;
-}
-
-.container button:hover {
-    opacity: 0.85;
-}
-
-/* BOTÓN ELIMINAR */
-
-.container form[action*="delete"] button {
-    background-color: #dc2626;
 }
 
 /* BOTÓN VER */
 
-.container form:not([action*="delete"]) button {
-    background-color: #2563eb;
+.btn-ver {
+    background-color: var(--color-hover, #e8f0e8);
+    color: var(--color-principal, #39764f);
+}
+
+.btn-ver:hover {
+    background-color: var(--color-principal, #39764f);
+    color: var(--color-blanco, #ffffff);
+}
+
+/* BOTÓN ELIMINAR */
+
+.btn-eliminar {
+    background-color: var(--color-error-fondo, #fce8e6);
+    color: var(--color-error, #b42318);
+}
+
+.btn-eliminar:hover {
+    background-color: var(--color-error, #b42318);
+    color: var(--color-blanco, #ffffff);
+}
+
+/*MENSAJE DE ELIMINACIÓN DE USUARIO */
+
+/* MENSAJE DE ÉXITO */
+
+.mensaje-exito {
+    margin: 20px 0;
+    padding: 15px;
+    background-color: #e8f0e8;
+    color: var(--color-principal-oscuro);
+    border: 1px solid var(--color-principal);
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 500;
+}
+
+/* MENSAJE DE AVISO */
+
+.mensaje-aviso {
+    margin: 20px 0;
+    padding: 15px;
+    background-color: var(--color-error-fondo);
+    color: var(--color-error);
+    border: 1px solid var(--color-error);
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 500;
+}
+
+/* =====================================
+   TABLET Y ESCRITORIO
+===================================== */
+
+@media (min-width: 768px) {
+
+    .pagina-usuarios {
+        margin: 60px auto;
+    }
+
+    .pagina-usuarios h1 {
+        font-size: 30px;
+        margin-bottom: 30px;
+    }
+
+    .tabla-responsive {
+        overflow-x: visible;
+    }
+
+    .tabla-usuarios {
+        min-width: 100%;
+    }
+
+    .tabla-usuarios th,
+    .tabla-usuarios td {
+        padding: 16px;
+    }
+
+    .btn-ver,
+    .btn-eliminar {
+        padding: 9px 14px;
+    }
 }
