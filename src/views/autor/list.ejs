@@ -20,68 +20,73 @@
                     </div>
                     <% } %>
 
-                        <!-- Enlace para añadir un nuevo autor -->
-                        <a href="/autores/nuevo" class="btn-principal">
-                            + Añadir autor
-                        </a>
+                        <% if (user && user.role===true) { %>
+                            <!-- Enlace para añadir un nuevo autor -->
+                            <a href="/autores/nuevo" class="btn-principal">
+                                + Añadir autor
+                            </a>
+                        <% } %>
 
-                        <!-- Tabla de autores -->
-                        <div class="contenedor-tabla">
+                            <!-- Tabla de autores -->
+                            <div class="contenedor-tabla">
 
-                            <table class="tabla-autores">
+                                <table class="tabla-autores">
 
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Nombre</th>
-                                        <th>Nacionalidad</th>
-                                        <th>Fecha de nacimiento</th>
-                                        <th>Acciones</th>
-                                    </tr>
-                                </thead>
-
-                                <tbody>
-
-                                    <% autores.forEach(autor=> { %>
+                                    <thead>
                                         <tr>
-                                            <td>
-                                                <%= autor.id %>
-                                            </td>
-                                            <td>
-                                                <%= autor.nombre %>
-                                            </td>
-                                            <td>
-                                                <%= autor.nacionalidad || '-' %>
-                                            </td>
-                                            <td>
-                                                <%= autor.fechaNacimiento || '-' %>
-                                            </td>
-
-                                            <td>
-                                                <!-- Editar autor -->
-                                                <a class="btn-editar" href="/autores/editar/<%= autor.id %>">
-                                                    Editar
-                                                </a>
-
-                                                <!-- Eliminar autor -->
-                                                <button type="button" class="btn-eliminar"
-                                                    data-url="/autores/eliminar/<%= autor.id %>">
-                                                    Eliminar
-                                                </button>
-
-                                                <a href="/autores/autor/<%= autor.id %>" class="btn-editar">
-                                                    Ver libros
-                                                </a>
-                                            </td>
+                                            <th>ID</th>
+                                            <th>Nombre</th>
+                                            <th>Nacionalidad</th>
+                                            <th>Fecha de nacimiento</th>
+                                            <th>Acciones</th>
                                         </tr>
+                                    </thead>
 
-                                        <% }); %>
+                                    <tbody>
 
-                                </tbody>
+                                        <% autores.forEach(autor=> { %>
+                                            <tr>
+                                                <td>
+                                                    <%= autor.id %>
+                                                </td>
+                                                <td>
+                                                    <%= autor.nombre %>
+                                                </td>
+                                                <td>
+                                                    <%= autor.nacionalidad || '-' %>
+                                                </td>
+                                                <td>
+                                                    <%= autor.fechaNacimiento ?
+                                                        autor.fechaNacimiento.split("-").reverse().join("/") : "" %>
+                                                </td>
 
-                            </table>
+                                                <td>
+                                                    <% if (user && user.role === true) { %>
+                                                    <!-- Editar autor -->
+                                                    <a class="btn-editar" href="/autores/editar/<%= autor.id %>">
+                                                        Editar
+                                                    </a>
 
-                        </div>
+                                                    <!-- Eliminar autor -->
+                                                    <button type="button" class="btn-eliminar"
+                                                        data-url="/autores/eliminar/<%= autor.id %>">
+                                                        Eliminar
+                                                    </button>
+                                                    <% } %>
+                                                    
+                                                    <a href="/autores/autor/<%= autor.id %>" class="btn-editar">
+                                                        Ver libros
+                                                    </a>
+                                                </td>
+                                            </tr>
+
+                                            <% }); %>
+
+                                    </tbody>
+
+                                </table>
+
+                            </div>
 
     </div>
 
