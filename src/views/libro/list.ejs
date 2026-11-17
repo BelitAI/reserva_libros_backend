@@ -1,17 +1,19 @@
 <%- include('../layout/header') %>
 
-<link rel="stylesheet" href="/css/libros.css">
+    <link rel="stylesheet" href="/css/libros.css">
 
-<section class="libros-page">
-    <h2>Libros</h2>
+    <section class="libros-page">
+        <h2>Libros</h2>
 
-    <a href="/libro/new" class="libros-boton">Crear libro</a>
+        <a href="/libro/new" class="libros-boton">Crear libro</a>
 
-    <div class="libros-grid">
-        <% for (const libro of libros) { %>
-            <%- include('libroCard', { libro }) %>
-        <% } %>
-    </div>
-</section>
+        <div class="libros-grid">
+            <% for (const libro of libros) { %>
+                <%- include('libroCard', { libro }) %>
+                    <% } %>
+        </div>
+    </section>
 
-<%- include('../layout/footer') %>
+    <%- include('confirmarEliminar') %>
+        <script defer src="/js/libros-confirmar.js"></script>
+        <%- include('../layout/footer') %>

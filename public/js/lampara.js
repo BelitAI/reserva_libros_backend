@@ -157,14 +157,6 @@ function dibujarLampara() {
     fill(230, 200, 130);
     circle(220, cuerdaY, 14);
 
-    // Indicación inicial
-    if (!encendida) {
-        fill(230);
-        noStroke();
-        textSize(13);
-        textAlign(CENTER);
-        text("Tira de la cuerda", 220, 210);
-    }
 }
 
 function crearFormulario() {
