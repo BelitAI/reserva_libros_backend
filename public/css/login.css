@@ -96,31 +96,37 @@
     text-decoration: underline;
 }
 
+/* Pantalla de inicio de sesión con lámpara */
+body.login-lampara {
+    margin: 0;
+    overflow: hidden;
+    background-color: #181e1c;
+}
 
-/* =================================
-   ESCRITORIO
-================================= */
+body.login-lampara .header {
+    position: relative;
+    z-index: 2;
+}
 
-@media (min-width: 768px) {
+body.login-lampara .footer {
+    display: none;
+}
 
-    .loginContainer {
-        max-width: 480px;
-        margin: 60px auto;
-    }
+/* El dibujo ocupa toda la pantalla */
+body.login-lampara canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
 
-    .login {
-        padding: 40px;
-    }
+/* El formulario aparece por encima del dibujo */
+body.login-lampara .loginContainer {
+    position: absolute;
+    z-index: 1;
+}
 
-    .login h1 {
-        font-size: 28px;
-    }
-
-    .formulario-login input {
-        padding: 13px;
-    }
-
-    .formulario-login button {
-        padding: 13px;
-    }
+body.login-lampara .login {
+    background-color: white;
+    border-color: #ddd;
 }
