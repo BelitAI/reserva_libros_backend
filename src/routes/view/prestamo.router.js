@@ -1,5 +1,8 @@
 import { Router } from "express";
 import prestamoViewController from "../../controllers/prestamo/prestamo.view.controller.js";
+import { isAuthenticated } from "../../middlewares/auth.middleware.js";
+import { isAdmin } from "../../middlewares/isAdmin.middleware.js";
+
 
 const router = Router();
 
@@ -14,7 +17,7 @@ router.post("/", prestamoViewController.create);
 
 // ------------------ R (Read)---------------------------------------------
 // endpoint lista de datos
-router.get("/", prestamoViewController.getAll);
+router.get("/",isAuthenticated, prestamoViewController.getAll);
 
 // endpoint dato individual
 router.get("/:id", prestamoViewController.getById);

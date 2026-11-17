@@ -59,8 +59,27 @@ const normalizar = (datos, base = {}) => {
 const cambiarEstado = (libro, estado, t) => libro.update({ estado }, { transaction: t });
 
 // ------------------ Lecturas ----------------------------
-const listar = () => Prestamo.findAll({ include: incluir, order: [["id", "ASC"]] });
+const listar = async (usuario) => {
+    try {
+        let prestamos;
 
+        if (usuario.role === true) {
+            prestamos = await Prestamo.findAll({ include: incluir, order: [["id", "ASC"]] });
+        } else {
+            prestamos = await Prestamo.findAll({
+                include: incluir, 
+                order: [["id", "ASC"]],
+                where: {
+                    usuarioId: usuario.userId
+                }
+            });
+        }
+        return prestamos;
+
+    } catch (error) {
+        console.error(error);
+    }
+};
 const obtener = (id) => Prestamo.findByPk(aEntero(id, "id"), { include: incluir });
 
 const usuariosParaFormulario = () => Usuario.findAll({ order: [["id", "ASC"]] });
