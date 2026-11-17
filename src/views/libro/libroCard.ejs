@@ -9,7 +9,9 @@
     <% if (!locals.ocultarDetalle) { %>
         <a href="/libro/<%= libro.id %>">Ver detalle</a>
         <% } %>
+         <% if (user && user.role === true) { %>
             <form method="post" action="/libro/<%= libro.id %>/delete">
                 <button type="submit" class="libros-eliminar">Eliminar libro</button>
             </form>
+        <% } %>
 </article>
