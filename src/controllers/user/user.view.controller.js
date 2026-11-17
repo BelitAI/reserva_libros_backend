@@ -1,5 +1,13 @@
 import userRepository from "../../repositories/user.repository.js";
+import bcrypt from "bcrypt";
 
+function redirect(res, url, data = {}) {
+    const urlSearchParams = new URLSearchParams();
+    for (const key in data) {
+        urlSearchParams.append(key, data[key]);
+    }
+    res.redirect(url + "?" + urlSearchParams.toString())
+}
 const createForm = (req, res) => {
     res.render("user/newUser");
 };
@@ -86,11 +94,34 @@ const loginForm = (req, res) => {
 
 const login = async (req, res) => {
     const { email, password } = req.body;
-    const usuario = await userRepository.loguearse(email, password)
-    if (!usuario) {
-        return res.send("Email o constraseña incorrectos");
+
+    try {
+        const user = await userRepository.loguearse(email);
+
+        if (!user) {
+            return redirect(res, "/user/login", { error: "Credenciales incorrectas" });
+        }
+        const compare = await bcrypt.compare(password, user.contrasena);
+        if (!compare) {
+            return redirect(res, "/user/login", { error: "Credenciales incorrectas" });
+        }
+        req.session.user = { userId: user.id, role: user.esAdmin };
+        redirect(res, "/user", { message: "Login exitoso" });
+    } catch (error) {
+        console.error(error);
+        redirect(res, "/user/login", { error: "Ha habido un error en el Login" });
     }
-    res.send(`Bienvenido ${usuario.nombre} ${usuario.contrasena}`)
+
+};
+
+const logout = (req, res) => {
+    req.session.destroy((err) => {
+        if (err) {
+            return res.status(500).send("Error al cerrar sesión");
+        }
+
+        return res.redirect("/libro");
+    });
 };
 
 export default {
@@ -102,5 +133,6 @@ export default {
     // update,
     deleteUser,
     login,
-    loginForm
+    loginForm,
+    logout
 }

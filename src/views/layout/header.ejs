@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,29 +15,40 @@
     <link rel="stylesheet" href="/css/infoUser.css">
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
 </head>
+
 <body>
     <header class="header">
 
-        
-    <nav class="navbar">
 
-        <a href="/user/login" class="logo">
-            <img src="/img/Logo reserva de libros.png" alt="Logo Reserva-Libros">
-        </a>
+        <nav class="navbar">
 
-        <div class="nav-links">
-            <a href="/user">Usuarios</a>
-            <a href="/libro">Libros</a>
-            <a href="/autores">Autores</a>
-            <a href="/prestamo">Préstamos</a>
-        </div>
-
-        <div class="nav-login">
-            <a href="/user/login" class="login-button">
-                Iniciar sesión
+            <a href="/user/login" " class="logo">
+                <img src="/img/Logo reserva de libros.png" alt="Logo Reserva-Libros">
             </a>
-        </div>
 
-    </nav>
-</header>
-<main>
+            <div class="nav-links">
+                <a href="/user">Usuarios</a>
+                <a href="/libro">Libros</a>
+                <a href="/autores">Autores</a>
+                <% if (user) { %> <a href="/prestamo">Prestamos</a>
+                    <% } %>
+
+            </div>
+
+            <div class="nav-login">
+                <% if (!user) { %>
+                    <a href="/user/login" class="login-button">
+                        Iniciar sesión
+                    </a>
+                    <% } else { %>
+                        <form action="/user/logout" method="POST">
+                            <button type="submit" class="login-button">
+                                Cerrar Sesión
+                            </button>
+                        </form>
+                        <% } %>
+            </div>
+
+        </nav>
+    </header>
+    <main>

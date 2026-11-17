@@ -29,7 +29,9 @@ const create = async (req, res) => {
 // ------------------ R (Read)---------------------------------------------
 // endpoint lista de datos
 const getAll = async (req, res) => {
-    const prestamos = await prestamoRepository.listar();
+
+    const prestamos = await prestamoRepository.listar(req.session.user);
+
     res.render("prestamo/list", { prestamos });
 };
 

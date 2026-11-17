@@ -46,19 +46,12 @@ const removeUser = async (id) => {
     return null;
 }
 
-const loguearse = async (email, contrasena) => {
+const loguearse = async (email) => {
     const user = await Usuario.findOne({
         where: {
             mail: email
         }
     });
-    if (!user) {
-        return null;
-    }
-    if (user.contrasena != contrasena) {
-        return null;
-    }
-
     return user;
 };
 
