@@ -25,6 +25,7 @@ router.get("/:id/edit", prestamoViewController.updateForm);
 
 // endpoint para cambiar dato por completo
 router.post("/:id/edit", prestamoViewController.update);
+router.post("/:id/return", prestamoViewController.devolver);
 
 // ------------------------ D (Delete)------------
 router.post("/:id/delete", prestamoViewController.remove);

@@ -1,10 +1,14 @@
 <%- include('../layout/header'); -%>
 
-<h2>Nuevo préstamo:</h2>
-<% if (error) { %>
-    <p class="error"><%= error %></p>
-<% } %>
-<form action="/prestamo" method="post">
+<div class="contenedor-formulario">
+    <h1>Nuevo préstamo</h1>
+
+    <% if (error) { %>
+        <p class="mensaje-aviso"><%= error %></p>
+    <% } %>
+
+    <form class="formulario" action="/prestamo" method="post">
+
     <label for="usuario">Usuario</label>
     <select name="usuario" id="usuario" required>
         <% for (const usuario of usuarios) { %>
@@ -30,6 +34,9 @@
     <input type="date" name="fechaDevolucion" id="fechaDevolucion" value="<%= datos.fechaDevolucion || '' %>">
 
     <button>Crear</button>
-</form>
-<a href="/prestamo">Volver</a>
+    </form>
+
+    <a href="/prestamo" class="btn-volver">← Volver</a>
+</div>
+
 <%- include('../layout/footer'); -%>

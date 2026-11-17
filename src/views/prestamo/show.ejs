@@ -1,10 +1,15 @@
 <%- include('../layout/header'); -%>
 
+<h1>Detalle del préstamo</h1>
+
 <% if (prestamo) { %>
     <%- include('prestamoCard', { prestamo }) -%>
 <% } else { %>
-    <p>No existe el préstamo</p>
+    <p class="mensaje-aviso">No existe el préstamo</p>
 <% } %>
 
-<a href="/prestamo">Volver</a>
+<div class="contenedor-formulario">
+    <a href="/prestamo" class="btn-volver">← Volver a la lista</a>
+</div>
+
 <%- include('../layout/footer'); -%>
