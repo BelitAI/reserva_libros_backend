@@ -54,7 +54,8 @@
                                                 <%= autor.nacionalidad || '-' %>
                                             </td>
                                             <td>
-                                                <%= autor.fechaNacimiento || '-' %>
+                                                <%= autor.fechaNacimiento ?
+                                                    autor.fechaNacimiento.split("-").reverse().join("/") : "" %>
                                             </td>
 
                                             <td>
