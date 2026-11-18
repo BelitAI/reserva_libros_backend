@@ -53,7 +53,7 @@
 
 /* BOTÓN VOLVER */
 
-.btn-volver {
+.pagina-info-usuario .btn-volver {
     display: inline-block;
     padding: 12px 18px;
     margin-top: 25px;
@@ -64,7 +64,7 @@
     font-weight: bold;
 }
 
-.btn-volver:hover {
+.pagina-info-usuario .btn-volver:hover {
     background-color: var(--color-principal-oscuro, #315c43);
 }
 

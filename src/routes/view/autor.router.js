@@ -1,7 +1,7 @@
 import { Router } from "express";
-import autorController from "../../controllers/autor/autor.view.controller.js"; 
-import { isAuthenticated  } from "../../middlewares/auth.middleware.js";
-import { isAdmin  } from "../../middlewares/isAdmin.middleware.js";
+import autorController from "../../controllers/autor/autor.view.controller.js";
+import { isAuthenticated } from "../../middlewares/auth.middleware.js";
+import { isAdmin } from "../../middlewares/isAdmin.middleware.js";
 
 
 const router = Router();
@@ -16,6 +16,12 @@ router.get("/nuevo", isAuthenticated, isAdmin, autorController.createForm);
 
 //Creeamos un nuevo autor
 router.post("/", autorController.create);
+router.post(
+    "/crear-desde-libro",
+    isAuthenticated,
+    isAdmin,
+    autorController.createFromBook
+);
 
 
 //MOSTRAR UN FORMULARIO PARA EDITAR UN AUTOR
