@@ -5,10 +5,10 @@
         <h1>Lista de usuarios</h1>
 
         <% if (mensaje) { %>
-            <div class="mensaje-aviso">
+            <div class="mensaje-<%= tipoMensaje %>">
                 <%= mensaje %>
             </div>
-            <% } %>
+        <% } %>
             
                 <a href="/user/new" class="btn-nuevo-usuario">
                     + Nuevo usuario

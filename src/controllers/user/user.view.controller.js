@@ -25,11 +25,13 @@ const createUser = async (req, res) => {
 const getAll = async (req, res) => {
     const usuarios = await userRepository.getAll();
     const mensaje = req.query.mensaje || "";
+    const tipoMensaje = req.query.tipoMensaje || "";
 
     res.render("user/users", {
         usuarios,
         esAdmin: req.session.user.role,
-        mensaje
+        mensaje,
+        tipoMensaje
     });
 };
 
@@ -60,12 +62,14 @@ const deleteUser = async (req, res) => {
 
         if (!usuario) {
             return redirect(res, "/user/", {
-                mensaje: "No se ha encontrado el usuario."
+                mensaje: "No se ha encontrado el usuario.",
+                tipoMensaje: "error"
             });
         }
 
         return redirect(res, "/user/", {
-            mensaje: "Usuario eliminado correctamente."
+            mensaje: "Usuario eliminado correctamente.",
+            tipoMensaje: "exito"
         });
 
     } catch (error) {
@@ -77,12 +81,15 @@ const deleteUser = async (req, res) => {
             error.parent?.code === "23503"
         ) {
             return redirect(res, "/user/", {
-                mensaje: "No se puede eliminar este usuario porque tiene préstamos asociados."
+                mensaje: "No se puede eliminar este usuario porque tiene préstamos asociados.",
+                tipoMensaje: "advertencia"
+
             });
         }
 
         return redirect(res, "/user/", {
-            mensaje: "Ha ocurrido un error al eliminar el usuario."
+            mensaje: "Ha ocurrido un error al eliminar el usuario.",
+            tipoMensaje: "error"
         });
     }
 };

@@ -132,6 +132,17 @@
     font-weight: 500;
 }
 
+.mensaje-advertencia {
+    margin: 20px 0;
+    padding: 15px;
+    background-color: #fffce9;
+    color: #b4b714;
+    border: 1px solid #b4b714;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 500;
+}
+
 /* MENSAJE DE AVISO */
 
 .mensaje-aviso {
