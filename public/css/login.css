@@ -130,3 +130,12 @@ body.login-lampara .login {
     background-color: white;
     border-color: #ddd;
 }
+
+.credeciales-incorrectas {
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+    font-weight: bold;
+    font-size: large;
+    color: red;
+}
