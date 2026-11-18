@@ -42,7 +42,7 @@ router.get("/:id", userViewController.getById);
 // // ------------------ D (Delete) ------------------
 
 // // Eliminar usuario
-router.post("/:id/delete", userViewController.deleteUser);
+router.post("/:id/delete", isAuthenticated, isAdmin, userViewController.deleteUser);
 
 
 

@@ -21,9 +21,16 @@ const createUser = async (req, res) => {
 
 
 // READ
+// READ
 const getAll = async (req, res) => {
     const usuarios = await userRepository.getAll();
-    res.render("user/users", { usuarios });
+    const mensaje = req.query.mensaje || "";
+
+    res.render("user/users", {
+        usuarios,
+        esAdmin: req.session.user.role,
+        mensaje
+    });
 };
 
 const getById = async (req, res) => {
@@ -44,17 +51,49 @@ const getById = async (req, res) => {
 // };
 
 
-// DELETE
+// DELETE USER
 const deleteUser = async (req, res) => {
     const id = parseInt(req.params.id);
-    await userRepository.removeUser(id)
-    res.redirect("/user/");
+
+    try {
+        const usuario = await userRepository.removeUser(id);
+
+        if (!usuario) {
+            return redirect(res, "/user/", {
+                mensaje: "No se ha encontrado el usuario."
+            });
+        }
+
+        return redirect(res, "/user/", {
+            mensaje: "Usuario eliminado correctamente."
+        });
+
+    } catch (error) {
+
+        console.error("Error al eliminar usuario:", error);
+
+        if (
+            error.name === "SequelizeForeignKeyConstraintError" ||
+            error.parent?.code === "23503"
+        ) {
+            return redirect(res, "/user/", {
+                mensaje: "No se puede eliminar este usuario porque tiene préstamos asociados."
+            });
+        }
+
+        return redirect(res, "/user/", {
+            mensaje: "Ha ocurrido un error al eliminar el usuario."
+        });
+    }
 };
 
+// Mostrar formulario de login
 const loginForm = (req, res) => {
     res.render("user/login");
-};
+}; 
 
+
+//Login
 const login = async (req, res) => {
     const { email, password } = req.body;
 
