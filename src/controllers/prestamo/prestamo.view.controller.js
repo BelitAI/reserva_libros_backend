@@ -3,26 +3,47 @@ import prestamoRepository, { PrestamoError } from "../../repositories/prestamo.r
 // ------------------ CRUD de préstamo ----------------------------
 
 // ------------------ C (Create)
-const createForm = async (req, res) => {
+// Datos del formulario de alta: usuarios permitidos, libros y fecha de hoy (AAAA-MM-DD, hora local)
+const datosFormularioCrear = async (sessionUser) => {
     const [usuarios, libros] = await Promise.all([
-        prestamoRepository.usuariosParaFormulario(req.session.user),
+        prestamoRepository.usuariosParaFormulario(sessionUser),
         prestamoRepository.librosParaFormulario()
     ]);
-    res.render("prestamo/create", { usuarios, libros, error: null, datos: {} });
+    const usuario = usuarios.find(u => u.id === sessionUser.userId);
+    const hoy = new Date().toLocaleDateString("en-CA");
+    return { usuarios, usuario, libros, hoy, esAdmin: sessionUser.role === true };
+};
+
+const createForm = async (req, res) => {
+    const fijos = await datosFormularioCrear(req.session.user);
+    res.render("prestamo/create", { ...fijos, error: null, datos: {} });
 };
 
 // endpoint para crear dato
 const create = async (req, res) => {
+    const sessionUser = req.session.user;
+    const hoy = new Date().toLocaleDateString("en-CA");
     try {
-        const prestamo = await prestamoRepository.crear(req.body);
+        let datos;
+        if (sessionUser.role === true) {
+            // el admin elige usuario y fecha de préstamo (puede ser pasada, nunca futura)
+            datos = { ...req.body, fechaPrestamo: req.body.fechaPrestamo || hoy };
+            if (datos.fechaPrestamo > hoy) {
+                throw new PrestamoError("La fecha de préstamo no puede ser futura");
+            }
+        } else {
+            // usuario normal: usuario y fecha de préstamo los fija el servidor
+            datos = { ...req.body, usuario: sessionUser.userId, fechaPrestamo: hoy };
+            if (datos.fechaDevolucion && datos.fechaDevolucion < hoy) {
+                throw new PrestamoError("La fecha de devolución no puede ser anterior a hoy");
+            }
+        }
+        const prestamo = await prestamoRepository.crear(datos);
         res.redirect("/prestamo/" + prestamo.id);
     } catch (error) {
         if (!(error instanceof PrestamoError)) throw error;
-        const [usuarios, libros] = await Promise.all([
-            prestamoRepository.usuariosParaFormulario(),
-            prestamoRepository.librosParaFormulario()
-        ]);
-        res.status(error.status).render("prestamo/create", { usuarios, libros, error: error.message, datos: req.body });
+        const fijos = await datosFormularioCrear(sessionUser);
+        res.status(error.status).render("prestamo/create", { ...fijos, error: error.message, datos: req.body });
     }
 };
 

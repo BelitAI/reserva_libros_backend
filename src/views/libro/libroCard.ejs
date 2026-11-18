@@ -2,9 +2,22 @@
     <h3>
         <%= libro.titulo %>
     </h3>
+
+    <p>Autor: <%= libro.autor ? libro.autor.nombre : "Autor desconocido" %>
+    </p>
     <p>Género: <%= libro.genero %>
     </p>
-    <p>Estado: <%= libro.estado %>
+    <p>
+        Estado:
+        <% if (libro.estado==="disponible" ) { %>
+            <span class="estado-disponible">Disponible</span>
+            <% } else if (libro.estado==="prestado" ) { %>
+                <span class="estado-prestado">Prestado</span>
+                <% } else { %>
+                    <span>
+                        <%= libro.estado %>
+                    </span>
+                    <% } %>
     </p>
     <% if (!locals.ocultarDetalle) { %>
         <a href="/libro/<%= libro.id %>">Ver detalle</a>
