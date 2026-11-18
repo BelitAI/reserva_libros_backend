@@ -1,0 +1,45 @@
+<%- include('../layout/header'); -%>
+
+<div class="pagina-info-usuario">
+
+    <h1>Datos del usuario</h1>
+
+    <div class="datos-usuario">
+        <p><strong>ID:</strong> <%= usuario.id %></p>
+        <p><strong>Nombre:</strong> <%= usuario.nombre %></p>
+        <p><strong>Apellidos:</strong> <%= usuario.apellidos %></p>
+        <p><strong>Email:</strong> <%= usuario.mail %></p>
+        <p><strong>Administrador:</strong> <%= usuario.es_admin ? "Sí" : "No" %></p>
+    </div>
+
+    <h2>Préstamos</h2>
+
+    <div class="tabla-responsive">
+        <table class="tabla-usuarios">
+            <thead>
+                <tr>
+                    <th>Libro</th>
+                    <th>Autor</th>
+                    <th>Fecha de préstamo</th>
+                    <th>Fecha de devolución</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <% usuario.prestamos.forEach(prestamo => { %>
+                    <tr>
+                        <td><%= prestamo.libro.titulo %></td>
+                        <td><%= prestamo.libro.autor.nombre %></td>
+                        <td><%= fecha(prestamo.fechaPrestamo) %></td>
+                        <td><%= fecha(prestamo.fechaDevolucion, "Sin devolución") %></td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+
+    <a href="/user/" class="btn-volver">Volver a usuarios</a>
+
+</div>
+
+<%- include('../layout/footer'); -%>

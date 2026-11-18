@@ -1,0 +1,79 @@
+<%- include('../layout/header'); -%>
+
+    <div class="pagina-usuarios">
+
+        <h1>Lista de usuarios</h1>
+
+        <% if (mensaje) { %>
+            <div class="mensaje-<%= tipoMensaje %>">
+                <%= mensaje %>
+            </div>
+        <% } %>
+            
+                <a href="/user/new" class="btn-nuevo-usuario">
+                    + Nuevo usuario
+                </a>
+
+                <div class="tabla-responsive">
+                    <table class="tabla-usuarios">
+
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Apellidos</th>
+                                <th>Email</th>
+                                <% if (esAdmin) { %>
+                                    <th>Eliminar</th>
+                                    <% } %>
+                                        <th>Ver</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            <% usuarios.forEach(usuario=> { %>
+
+                                <tr>
+                                    <td>
+                                        <%= usuario.id %>
+                                    </td>
+                                    <td>
+                                        <%= usuario.nombre %>
+                                    </td>
+                                    <td>
+                                        <%= usuario.apellidos %>
+                                    </td>
+                                    <td>
+                                        <%= usuario.mail %>
+                                    </td>
+
+                                    <% if (esAdmin) { %>
+                                        <td>
+                                            <form action="/user/<%= usuario.id %>/delete" method="POST">
+                                                <button type="submit" class="btn-eliminar">
+                                                    Eliminar
+                                                </button>
+                                            </form>
+                                        </td>
+                                        <% } %>
+
+                                            <td>
+                                                <form action="/user/<%= usuario.id %>" method="GET">
+                                                    <button type="submit" class="btn-ver">
+                                                        Ver
+                                                    </button>
+                                                </form>
+                                            </td>
+                                </tr>
+
+                                <% }) %>
+
+                        </tbody>
+
+                    </table>
+                </div>
+
+    </div>
+
+    <%- include('../layout/footer'); -%>

@@ -1,0 +1,31 @@
+<article class="prestamo-card">
+    <h3>Préstamo #<%= prestamo.id %>
+    </h3>
+    <p>Usuario: <%= prestamo.usuario ? prestamo.usuario.nombre + " " + prestamo.usuario.apellidos : "Desconocido" %>
+    </p>
+    <p>Libro: <%= prestamo.libro ? prestamo.libro.titulo : "Desconocido" %>
+    </p>
+    <p>Fecha de préstamo: <%= fecha(prestamo.fechaPrestamo) %>
+    </p>
+    <p>Fecha de devolución: <%= fecha(prestamo.fechaDevolucion, "Pendiente" ) %>
+    </p>
+
+    <div class="prestamo-acciones">
+        <% if (user && user.role===true) { %>
+        <a class="btn-editar" href="/prestamo/<%= prestamo.id %>/edit">Editar</a>
+        <% } %>
+        <% if (user) { %>
+            <!-- solo aparece si el préstamo sigue abierto -->
+            <% if (!prestamo.fechaDevolucion) { %>
+                <form method="post" action="/prestamo/<%= prestamo.id %>/return">
+                    <button class="btn-devolver">Devolver</button>
+                </form>
+                <% } %>
+                    <% } %>
+                        <% if (user && user.role===true) { %>
+                            <form method="post" action="/prestamo/<%= prestamo.id %>/delete">
+                                <button class="btn-eliminar">Eliminar</button>
+                            </form>
+                            <% } %>
+    </div>
+</article>

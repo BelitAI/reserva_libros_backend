@@ -1,0 +1,62 @@
+<%- include('../layout/header'); -%>
+
+<div class="contenedor-formulario">
+    <h1>Nuevo préstamo</h1>
+
+    <% if (error) { %>
+        <p class="mensaje-aviso"><%= error %></p>
+    <% } %>
+
+    <form class="formulario" action="/prestamo" method="post">
+
+    <label for="usuario">Usuario</label>
+    <% if (esAdmin) { %>
+    <select name="usuario" id="usuario" required>
+        <% for (const u of usuarios) { %>
+            <option value="<%= u.id %>" <%= String(u.id) === String(datos.usuario || usuario.id) ? "selected" : "" %>>
+                <%= u.nombre %> <%= u.apellidos %>
+            </option>
+        <% } %>
+    </select>
+    <% } else { %>
+    <input type="text" id="usuario" value="<%= usuario.nombre %> <%= usuario.apellidos %>" readonly disabled style="background:#e0e0e0;color:#777;cursor:not-allowed;">
+    <% } %>
+
+    <label for="libro">Libro</label>
+    <select name="libro" id="libro" required>
+        <% for (const libro of libros) { %>
+            <option value="<%= libro.id %>" <%= String(libro.id) === String(datos.libro) ? "selected" : "" %>>
+                <%= libro.titulo %>
+            </option>
+        <% } %>
+    </select>
+
+    <label for="fechaPrestamo">Fecha de préstamo</label>
+    <% if (esAdmin) { %>
+    <input type="date" name="fechaPrestamo" id="fechaPrestamo" max="<%= hoy %>" value="<%= datos.fechaPrestamo || hoy %>" required>
+    <% } else { %>
+    <input type="date" id="fechaPrestamo" value="<%= hoy %>" readonly disabled style="background:#e0e0e0;color:#777;cursor:not-allowed;">
+    <% } %>
+
+    <label for="fechaDevolucion">Fecha de devolución</label>
+    <input type="date" name="fechaDevolucion" id="fechaDevolucion" min="<%= esAdmin ? (datos.fechaPrestamo || hoy) : hoy %>" value="<%= datos.fechaDevolucion || '' %>">
+
+    <button>Crear</button>
+    </form>
+
+    <% if (esAdmin) { %>
+    <script>
+        // la devolución no puede ser anterior a la fecha de préstamo elegida
+        const prestamo = document.getElementById("fechaPrestamo");
+        const devolucion = document.getElementById("fechaDevolucion");
+        prestamo.addEventListener("change", () => {
+            devolucion.min = prestamo.value;
+            if (devolucion.value && devolucion.value < prestamo.value) devolucion.value = "";
+        });
+    </script>
+    <% } %>
+
+    <a href="/prestamo" class="btn-volver">← Volver</a>
+</div>
+
+<%- include('../layout/footer'); -%>

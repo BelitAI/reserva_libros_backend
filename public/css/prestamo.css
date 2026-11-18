@@ -1,0 +1,132 @@
+/* =====================================
+   PÁGINAS DE PRÉSTAMOS
+===================================== */
+
+.pagina-prestamos {
+    width: 90%;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+/* ---------- Tabla ---------- */
+
+.tabla-prestamos {
+    width: 100%;
+    min-width: 600px;
+    border-collapse: collapse;
+    background-color: var(--color-blanco);
+    box-shadow: 0 3px 12px var(--color-sombra);
+}
+
+.tabla-prestamos th {
+    padding: 14px 10px;
+    background-color: var(--color-principal);
+    color: var(--color-blanco);
+    text-align: left;
+    border: 1px solid var(--color-borde);
+}
+
+.tabla-prestamos td {
+    padding: 12px 10px;
+    border: 1px solid var(--color-borde);
+}
+
+.tabla-prestamos tbody tr:hover {
+    background-color: var(--color-hover);
+}
+
+/* Estado: pendiente / devuelto */
+
+.estado-pendiente {
+    color: var(--color-error);
+    font-weight: bold;
+}
+
+.estado-devuelto {
+    color: var(--color-principal);
+    font-weight: bold;
+}
+
+/* ---------- Select de los formularios ---------- */
+
+.formulario select {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid var(--color-borde);
+    border-radius: 7px;
+    font-size: 16px;
+    background-color: var(--color-blanco);
+}
+
+.formulario select:focus {
+    outline: none;
+    border-color: var(--color-principal);
+    box-shadow: 0 0 0 3px var(--color-enfoque);
+}
+
+/* ---------- Tarjeta de detalle ---------- */
+
+.prestamo-card {
+    width: 90%;
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 25px 20px;
+    background-color: var(--color-blanco);
+    border-radius: 12px;
+    box-shadow: 0 3px 12px var(--color-sombra);
+}
+
+.prestamo-card h3 {
+    margin-top: 0;
+    color: var(--color-principal-oscuro);
+}
+
+.prestamo-acciones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 20px;
+}
+
+/* Los botones <button> de la tarjeta se ven igual que los enlaces */
+
+.prestamo-acciones form {
+    margin: 0;
+}
+
+.prestamo-acciones button {
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.btn-devolver {
+    display: inline-block;
+    padding: 8px 10px;
+    margin: 3px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: bold;
+    background-color: var(--color-principal);
+    color: var(--color-blanco);
+}
+
+.btn-devolver:hover {
+    background-color: var(--color-principal-oscuro);
+}
+
+@media (min-width: 768px) {
+    .tabla-prestamos {
+        min-width: 100%;
+    }
+
+    .tabla-prestamos th,
+    .tabla-prestamos td {
+        padding: 16px;
+    }
+
+    .prestamo-card {
+        padding: 35px;
+    }
+}

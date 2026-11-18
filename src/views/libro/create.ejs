@@ -1,0 +1,83 @@
+<%- include('../layout/header') %>
+
+    <link rel="stylesheet" href="/css/libros.css">
+
+    <section class="libros-page">
+
+        <h2>Nuevo libro</h2>
+
+        <form action="/libro" method="post" class="libros-form">
+
+            <label for="titulo">Título</label>
+            <input type="text" id="titulo" name="titulo" required>
+
+            <label for="autor_id">Autor</label>
+
+            <select id="autor_id" name="autor_id" class="select-scroll" required>
+                <option value="">Selecciona un autor</option>
+
+                <% for (const autor of autores) { %>
+                    <option value="<%= autor.id %>">
+                        <%= autor.nombre %>
+                    </option>
+                    <% } %>
+            </select>
+
+            <button type="button" id="abrir-autor">
+                ¿No encuentras al autor? Crear autor
+            </button>
+
+            <label for="genero">Género literario</label>
+
+            <select id="genero" name="genero" class="select-scroll" required>
+                <option value="">Selecciona un género</option>
+                <option value="Biografía">Biografía</option>
+                <option value="Ciencia ficción">Ciencia ficción</option>
+                <option value="Ensayo">Ensayo</option>
+                <option value="Fantasía">Fantasía</option>
+                <option value="Infantil y juvenil">Infantil y juvenil</option>
+                <option value="Misterio">Misterio</option>
+                <option value="Novela">Novela</option>
+                <option value="Poesía">Poesía</option>
+                <option value="Teatro">Teatro</option>
+                <option value="Terror">Terror</option>
+            </select>
+
+            <button type="submit">Crear libro</button>
+
+        </form>
+
+        <a href="/libro">← Volver a los libros</a>
+
+    </section>
+
+    <dialog id="modal-autor">
+        <form id="form-nuevo-autor">
+            <h2>Nuevo autor</h2>
+
+            <label for="nuevo-autor-nombre">Nombre y apellido</label>
+            <input type="text" id="nuevo-autor-nombre" name="nombre" required>
+
+            <label for="nuevo-autor-nacionalidad">Nacionalidad</label>
+            <input type="text" id="nuevo-autor-nacionalidad" name="nacionalidad" required>
+
+            <label for="nuevo-autor-fecha">Fecha de nacimiento</label>
+            <input type="date" id="nuevo-autor-fecha" name="fecha_nacimiento" required>
+
+            <p id="error-nuevo-autor" role="alert" hidden></p>
+
+            <div class="modal-autor-acciones">
+                <button type="button" id="cancelar-autor">
+                    Cancelar
+                </button>
+                <button type="submit">
+                    Guardar autor
+                </button>
+            </div>
+        </form>
+    </dialog>
+
+    <script src="/js/crear-autor-libro.js" defer></script>
+
+
+    <%- include('../layout/footer') %>

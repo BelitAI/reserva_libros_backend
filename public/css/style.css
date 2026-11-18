@@ -1,0 +1,242 @@
+/* =====================================
+   ESTRUCTURA GENERAL
+===================================== */
+
+html,
+body {
+    margin: 0;
+    min-height: 100%;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: Arial, sans-serif;
+}
+
+main {
+    flex: 1;
+}
+
+
+/* =====================================
+   HEADER - MOBILE FIRST
+===================================== */
+
+.header {
+    background-color: #c8dbc9;
+    padding: 8px 20px;
+    border-bottom: 1px solid #b2c9b5;
+}
+
+.navbar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.nav-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 18px;
+}
+
+.navbar a {
+    color: #315c43;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.navbar a:hover {
+    color: #1e402d;
+    text-decoration: underline;
+}
+
+/* Botón iniciar sesión */
+
+.login-button {
+    display: inline-block;
+    background-color: #39764f;
+    color: white !important;
+    padding: 9px 16px;
+    border-radius: 6px;
+}
+
+.login-button:hover {
+    background-color: #315c43;
+    text-decoration: none !important;
+}
+
+
+/* =====================================
+   FOOTER - MOBILE FIRST
+===================================== */
+
+.footer {
+    background-color: #c8dbc9;
+    color: #315c43;
+    text-align: center;
+    padding: 18px 15px;
+    margin-top: 35px;
+    border-top: 1px solid #b2c9b5;
+}
+
+.footer-contenido {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-contenido h3 {
+    margin: 0 0 8px;
+    font-size: 19px;
+}
+
+.footer-contenido p {
+    margin: 6px 0;
+    font-size: 14px;
+}
+
+.footer-copy {
+    font-size: 12px !important;
+    opacity: 0.8;
+}
+
+/* LOGO */
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: #315c43;
+    font-size: 21px;
+    font-weight: bold;
+}
+
+.logo img {
+    width: 55px;
+    height: 55px;
+    object-fit: contain;
+}
+
+/* =====================================
+   TABLET Y ESCRITORIO
+===================================== */
+
+@media (min-width: 768px) {
+
+    /* HEADER */
+
+    .header {
+        padding: 5px 20px;
+    }
+
+    .navbar {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .nav-links {
+        gap: 30px;
+    }
+
+    .navbar a {
+        font-size: 16px;
+    }
+
+    .login-button {
+        padding: 10px 18px;
+    }
+
+    .logo {
+        font-size: 25px;
+    }
+
+    .logo img {
+        width: 75px;
+        height: 75px;
+    }
+
+    .header {
+        padding: 5px 30px;
+    }
+
+    /* FOOTER */
+
+    .footer {
+        padding: 22px 15px;
+        margin-top: 50px;
+    }
+
+    .footer-contenido h3 {
+        font-size: 21px;
+    }
+}
+
+/* Página de inicio */
+.inicio {
+    text-align: center;
+    padding: 100px 20px;
+}
+
+.inicio h1 {
+    margin: 0 0 20px;
+    font-size: 36px;
+    color: #315f47;
+}
+
+.inicio p {
+    margin: 0 auto;
+    max-width: 600px;
+    font-size: 19px;
+    line-height: 1.6;
+    color: #4c5c50;
+}
+
+/* Libros animados en la página de inicio */
+.libros-volando {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 35px;
+    margin-top: 60px;
+}
+
+.libro-volador {
+    display: inline-block;
+    font-size: 180px;
+    animation: flotar 3s ease-in-out infinite;
+}
+
+/* Cada libro se mueve en un momento distinto */
+.libro-volador:nth-child(2) {
+    animation-delay: 0.5s;
+}
+
+.libro-volador:nth-child(3) {
+    animation-delay: 1s;
+}
+
+@keyframes flotar {
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(-8deg);
+    }
+
+    50% {
+        transform: translateY(-25px) rotate(8deg);
+    }
+}
+
+/* Respeta la preferencia de reducir las animaciones */
+@media (prefers-reduced-motion: reduce) {
+    .libro-volador {
+        animation: none;
+    }
+}

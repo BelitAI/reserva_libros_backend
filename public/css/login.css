@@ -1,0 +1,141 @@
+/* =================================
+   LOGIN - MOBILE FIRST
+================================= */
+
+.loginContainer {
+    width: 90%;
+    max-width: 500px;
+    margin: 40px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login {
+    width: 100%;
+    padding: 25px 20px;
+    background-color: var(--color-blanco, #ffffff);
+    border: 1px solid var(--color-borde, #ccd6cc);
+    border-radius: 12px;
+    box-shadow: 0 3px 12px var(--color-sombra, rgba(0, 0, 0, 0.08));
+    box-sizing: border-box;
+}
+
+.login h1 {
+    text-align: center;
+    color: var(--color-principal-oscuro, #315c43);
+    margin-bottom: 10px;
+}
+
+.login-descripcion {
+    text-align: center;
+    color: var(--color-texto, #333333);
+    margin-bottom: 30px;
+}
+
+/* FORMULARIO */
+
+.formulario-login label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--color-texto, #333333);
+    font-weight: 600;
+}
+
+.formulario-login input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid var(--color-borde, #ccd6cc);
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 15px;
+}
+
+.formulario-login input:focus {
+    outline: none;
+    border-color: var(--color-principal, #39764f);
+    box-shadow: 0 0 0 3px var(--color-enfoque, rgba(57, 118, 79, 0.15));
+}
+
+/* BOTÓN */
+
+.formulario-login button {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--color-principal, #39764f);
+    color: var(--color-blanco, #ffffff);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.formulario-login button:hover {
+    background-color: var(--color-principal-oscuro, #315c43);
+}
+
+/* REGISTRO */
+
+.login-registro {
+    text-align: center;
+    margin-top: 25px;
+    color: var(--color-texto, #333333);
+}
+
+.login-registro a {
+    color: var(--color-principal, #39764f);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.login-registro a:hover {
+    color: var(--color-principal-oscuro, #315c43);
+    text-decoration: underline;
+}
+
+/* Pantalla de inicio de sesión con lámpara */
+body.login-lampara {
+    margin: 0;
+    overflow: hidden;
+    background-color: #181e1c;
+}
+
+body.login-lampara .header {
+    position: relative;
+    z-index: 2;
+}
+
+body.login-lampara .footer {
+    display: none;
+}
+
+/* El dibujo ocupa toda la pantalla */
+body.login-lampara canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
+
+/* El formulario aparece por encima del dibujo */
+body.login-lampara .loginContainer {
+    position: absolute;
+    z-index: 1;
+}
+
+body.login-lampara .login {
+    background-color: white;
+    border-color: #ddd;
+}
+
+.credeciales-incorrectas {
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+    font-weight: bold;
+    font-size: large;
+    color: red;
+}
