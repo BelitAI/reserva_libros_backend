@@ -135,6 +135,10 @@ const logout = (req, res) => {
     });
 };
 
+const toError = (req, res)=>{
+    return res.render("user/403");
+}
+
 export default {
     createForm,
     getAll,
@@ -145,5 +149,6 @@ export default {
     deleteUser,
     login,
     loginForm,
-    logout
+    logout,
+    toError
 }
