@@ -209,7 +209,7 @@ main {
 
 .libro-volador {
     display: inline-block;
-    font-size: 100px;
+    font-size: 180px;
     animation: flotar 3s ease-in-out infinite;
 }
 
