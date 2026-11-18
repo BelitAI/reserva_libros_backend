@@ -4,7 +4,12 @@
 
         <h1>Lista de usuarios</h1>
 
-
+        <% if (mensaje) { %>
+            <div class="mensaje-aviso">
+                <%= mensaje %>
+            </div>
+            <% } %>
+            
                 <a href="/user/new" class="btn-nuevo-usuario">
                     + Nuevo usuario
                 </a>
@@ -18,8 +23,10 @@
                                 <th>Nombre</th>
                                 <th>Apellidos</th>
                                 <th>Email</th>
-                                <th>Eliminar</th>
-                                <th>Ver</th>
+                                <% if (esAdmin) { %>
+                                    <th>Eliminar</th>
+                                    <% } %>
+                                        <th>Ver</th>
                             </tr>
                         </thead>
 
@@ -41,21 +48,23 @@
                                         <%= usuario.mail %>
                                     </td>
 
-                                    <td>
-                                        <form action="/user/<%= usuario.id %>/delete" method="POST">
-                                            <button type="submit" class="btn-eliminar">
-                                                Eliminar
-                                            </button>
-                                        </form>
-                                    </td>
+                                    <% if (esAdmin) { %>
+                                        <td>
+                                            <form action="/user/<%= usuario.id %>/delete" method="POST">
+                                                <button type="submit" class="btn-eliminar">
+                                                    Eliminar
+                                                </button>
+                                            </form>
+                                        </td>
+                                        <% } %>
 
-                                    <td>
-                                        <form action="/user/<%= usuario.id %>" method="GET">
-                                            <button type="submit" class="btn-ver">
-                                                Ver
-                                            </button>
-                                        </form>
-                                    </td>
+                                            <td>
+                                                <form action="/user/<%= usuario.id %>" method="GET">
+                                                    <button type="submit" class="btn-ver">
+                                                        Ver
+                                                    </button>
+                                                </form>
+                                            </td>
                                 </tr>
 
                                 <% }) %>
