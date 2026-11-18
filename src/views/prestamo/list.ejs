@@ -35,7 +35,9 @@
                             </td>
                             <td>
                                 <a class="btn-editar" href="/prestamo/<%= prestamo.id %>">Ver</a>
+                                <% if (user && user.role===true) { %>
                                 <a class="btn-editar" href="/prestamo/<%= prestamo.id %>/edit">Editar</a>
+                                <% } %>
                             </td>
                         </tr>
                     <% }) %>

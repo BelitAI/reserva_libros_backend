@@ -35,8 +35,8 @@ const create = async (req, res) => {
 // Mostrar todos los libros
 const getAll = async (req, res) => {
     const libros = await libroRepository.getAll();
-
-    res.render("libro/list", { libros });
+    const mensaje = req.query.message || "";
+    res.render("libro/list", { libros, mensaje });
 };
 
 // Mostrar un libro por su identificador

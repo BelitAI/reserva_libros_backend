@@ -1,17 +1,25 @@
 <%- include('../layout/header') %>
 
-<link rel="stylesheet" href="/css/libros.css">
+    <link rel="stylesheet" href="/css/libros.css">
 
-<section class="libros-page">
-    <h2>Libros</h2>
+    <section class="libros-page">
 
-    <a href="/libro/new" class="libros-boton">Crear libro</a>
+        <% if (mensaje) { %>
 
-    <div class="libros-grid">
-        <% for (const libro of libros) { %>
-            <%- include('libroCard', { libro }) %>
-        <% } %>
-    </div>
-</section>
+            <div class="<%= mensaje.includes('correctamente') ? 'mensaje-exito' : 'mensaje-aviso' %>">
+                <%= mensaje %>
+            </div>
 
-<%- include('../layout/footer') %>
+            <% } %>
+                <h2>Libros</h2>
+               <% if (user && user.role === true) { %>
+                <a href="/libro/new" class="libros-boton">Crear libro</a>
+                <% } %>
+                    <div class="libros-grid">
+                        <% for (const libro of libros) { %>
+                            <%- include('libroCard', { libro }) %>
+                                <% } %>
+                    </div>
+    </section>
+
+    <%- include('../layout/footer') %>

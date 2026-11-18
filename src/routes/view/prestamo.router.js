@@ -20,18 +20,18 @@ router.post("/", prestamoViewController.create);
 router.get("/",isAuthenticated, prestamoViewController.getAll);
 
 // endpoint dato individual
-router.get("/:id", prestamoViewController.getById);
+router.get("/:id", isAuthenticated, prestamoViewController.getById);
 
 // ---------------- U (Update) -----------------------------------
 // vista de actualización de préstamo
-router.get("/:id/edit", prestamoViewController.updateForm);
+router.get("/:id/edit",isAuthenticated,isAdmin, prestamoViewController.updateForm);
 
 // endpoint para cambiar dato por completo
-router.post("/:id/edit", prestamoViewController.update);
-router.post("/:id/return", prestamoViewController.devolver);
+router.post("/:id/edit", isAuthenticated,isAdmin, prestamoViewController.update);
+router.post("/:id/return", isAuthenticated, prestamoViewController.devolver);
 
 // ------------------------ D (Delete)------------
-router.post("/:id/delete", prestamoViewController.remove);
+router.post("/:id/delete", isAuthenticated, isAdmin, prestamoViewController.remove);
 
 
 export default router;

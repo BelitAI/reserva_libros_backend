@@ -9,8 +9,9 @@
             <%- include('libroCard', { libro, ocultarDetalle: true }) %>
 
                 <div class="libros-acciones">
+                     <% if (user && user.role === true) { %>
                     <a href="/libro/<%= libro.id %>/edit" class="libros-boton">Editar libro</a>
-
+                        <% } %>
                     <a href="/libro">← Volver a los libros</a>
                 </div>
                 <% } else { %>

@@ -23,9 +23,7 @@ const createUser = async (req, res) => {
 // READ
 const getAll = async (req, res) => {
     const usuarios = await userRepository.getAll();
-     // Recuperamos el mensaje que llega por la URL
-    const mensaje = req.query.mensaje || "";
-    res.render("user/users", { usuarios, mensaje });
+    res.render("user/users", { usuarios });
 };
 
 const getById = async (req, res) => {
@@ -46,46 +44,11 @@ const getById = async (req, res) => {
 // };
 
 
-
 // DELETE
 const deleteUser = async (req, res) => {
-
     const id = parseInt(req.params.id);
-
-    try {
-
-        // Intentamos eliminar el usuario
-        const usuario = await userRepository.removeUser(id);
-
-        // Comprobamos si existe
-        if (!usuario) {
-            return res.redirect(
-                `/user?mensaje=${encodeURIComponent("No se ha encontrado el usuario.")}`
-            );
-        }
-
-        // Si todo ha salido bien
-        res.redirect(
-            `/user?mensaje=${encodeURIComponent("Usuario eliminado correctamente")}`
-        );
-
-    } catch (error) {
-
-        // Comprobamos si el error se debe a una relación con préstamos
-        if (error.name === "SequelizeForeignKeyConstraintError") {
-
-            return res.redirect(
-                `/user?mensaje=${encodeURIComponent("No se puede eliminar este usuario porque tiene préstamos asociados.")}`
-            );
-        }
-
-        // Otros errores
-        console.error("Error al eliminar usuario:", error);
-
-        res.redirect(
-            `/user?mensaje=${encodeURIComponent("Ha ocurrido un error al eliminar el usuario.")}`
-        );
-    }
+    await userRepository.removeUser(id)
+    res.redirect("/user/");
 };
 
 const loginForm = (req, res) => {
@@ -106,7 +69,7 @@ const login = async (req, res) => {
             return redirect(res, "/user/login", { error: "Credenciales incorrectas" });
         }
         req.session.user = { userId: user.id, role: user.esAdmin };
-        redirect(res, "/user", { message: "Login exitoso" });
+        redirect(res, "/libro", { message: "Login exitoso" });
     } catch (error) {
         console.error(error);
         redirect(res, "/user/login", { error: "Ha habido un error en el Login" });
