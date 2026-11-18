@@ -5,7 +5,7 @@ import { isAuthenticated } from "../../middlewares/auth.middleware.js";
 import { isAdmin } from "../../middlewares/isAdmin.middleware.js";
 
 // // ------------------ C (Create) ------------------
-
+router.get("/403", userViewController.toError)
 // // Vista de creación
 router.get("/new", userViewController.createForm);
 
@@ -28,6 +28,8 @@ router.get("/", isAuthenticated, isAdmin, userViewController.getAll);
 
 // // Mostrar usuario individual
 router.get("/:id", userViewController.getById);
+
+
 
 
 // // ------------------ U (Update) ------------------
