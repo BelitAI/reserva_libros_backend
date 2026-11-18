@@ -52,7 +52,9 @@ const deleteUser = async (req, res) => {
 };
 
 const loginForm = (req, res) => {
-    res.render("user/login");
+    res.render("user/login",{
+        error: req.query.error
+    });
 };
 
 const login = async (req, res) => {

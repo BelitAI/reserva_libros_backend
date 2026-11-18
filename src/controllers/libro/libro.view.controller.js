@@ -36,6 +36,8 @@ const create = async (req, res) => {
 const getAll = async (req, res) => {
     const libros = await libroRepository.getAll();
     const mensaje = req.query.message || "";
+    console.log(mensaje);
+    
     res.render("libro/list", { libros, mensaje });
 };
 
