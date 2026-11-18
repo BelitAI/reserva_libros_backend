@@ -7,7 +7,12 @@ import {  } from "./user.router.js";
 import { isAuthenticated } from "../../middlewares/auth.middleware.js";
 import { isAdmin } from "../../middlewares/isAdmin.middleware.js";
 
-const router  = Router();
+const router = Router();
+
+// Mostrar la página de inicio
+router.get("/", (req, res) => {
+    res.render("inicio");
+});
 
 router.use("/user", userRouter);
 router.use("/libro", libroRouter);

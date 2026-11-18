@@ -1,5 +1,5 @@
 import Libro from "../models/libro.model.js";
-// ------------------ C (Create) ------------------
+import Autor from "../models/autor.model.js";
 
 // ------------------ C (Create) ------------------
 
@@ -13,14 +13,30 @@ const create = async (data) => {
 
 // Obtener todos los libros
 const getAll = async () => {
-    const libros = await Libro.findAll();
+    const libros = await Libro.findAll({
+        include: {
+            model: Autor,
+            as: "autor",
+            attributes: ["nombre"]
+        }
+    });
+
     return libros;
 };
+
 // Obtener un libro por su identificador
 const getById = async (id) => {
-    const libro = await Libro.findByPk(id);
+    const libro = await Libro.findByPk(id, {
+        include: {
+            model: Autor,
+            as: "autor",
+            attributes: ["nombre"]
+        }
+    });
+
     return libro;
 };
+
 // ------------------ U (Update) ------------------
 
 // Actualizar un libro en la base de datos

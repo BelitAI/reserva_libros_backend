@@ -26,29 +26,22 @@
             </a>
 
             <div class="nav-links">
-                <% if (user && user.role === true) { %>
+                <a href="/libro">Libros</a>
+                <a href="/autores">Autores</a>
+
+                <% if (user && user.role===true) { %>
                     <a href="/user">Usuarios</a>
                     <% } %>
-                        <a href="/libro">Libros</a>
-                        <a href="/autores">Autores</a>
-                        <% if (user) { %>
-                            <a href="/prestamo">Prestamos</a>
-                            <% } %>
 
+                        <% if (user) { %>
+                            <a href="/prestamo">Préstamos</a>
+                            <% } %>
             </div>
 
             <div class="nav-login">
-                <% if (!user) { %>
-                    <a href="/user/login" class="login-button">
-                        Iniciar sesión
-                    </a>
-                    <% } else { %>
-                        <form action="/user/logout" method="POST">
-                            <button type="submit" class="login-button">
-                                Cerrar Sesión
-                            </button>
-                        </form>
-                        <% } %>
+                <a href="/user/login" class="login-button">
+                    Iniciar sesión
+                </a>
             </div>
 
         </nav>

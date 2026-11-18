@@ -12,14 +12,15 @@
 
             <% } %>
                 <h2>Libros</h2>
-               <% if (user && user.role === true) { %>
-                <a href="/libro/new" class="libros-boton">Crear libro</a>
-                <% } %>
-                    <div class="libros-grid">
-                        <% for (const libro of libros) { %>
-                            <%- include('libroCard', { libro }) %>
-                                <% } %>
-                    </div>
+                <% if (user && user.role===true) { %>
+                    <a href="/libro/new" class="libros-boton">Crear libro</a>
+                    <% } %>
+                        <div class="libros-grid">
+                            <% for (const libro of libros) { %>
+                                <%- include('libroCard', { libro }) %>
+                                    <% } %>
+                        </div>
     </section>
-
-    <%- include('../layout/footer') %>
+    <%- include('confirmarEliminar') %>
+        <script defer src="/js/libros-confirmar.js"></script>
+        <%- include('../layout/footer') %>
