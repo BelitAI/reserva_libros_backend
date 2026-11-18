@@ -119,7 +119,7 @@ main {
 
 .logo img {
     width: 55px;
-    height:55px;
+    height: 55px;
     object-fit: contain;
 }
 
@@ -132,7 +132,7 @@ main {
     /* HEADER */
 
     .header {
-         padding: 5px 20px;
+        padding: 5px 20px;
     }
 
     .navbar {
@@ -175,5 +175,68 @@ main {
 
     .footer-contenido h3 {
         font-size: 21px;
+    }
+}
+
+/* Página de inicio */
+.inicio {
+    text-align: center;
+    padding: 100px 20px;
+}
+
+.inicio h1 {
+    margin: 0 0 20px;
+    font-size: 36px;
+    color: #315f47;
+}
+
+.inicio p {
+    margin: 0 auto;
+    max-width: 600px;
+    font-size: 19px;
+    line-height: 1.6;
+    color: #4c5c50;
+}
+
+/* Libros animados en la página de inicio */
+.libros-volando {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 35px;
+    margin-top: 60px;
+}
+
+.libro-volador {
+    display: inline-block;
+    font-size: 100px;
+    animation: flotar 3s ease-in-out infinite;
+}
+
+/* Cada libro se mueve en un momento distinto */
+.libro-volador:nth-child(2) {
+    animation-delay: 0.5s;
+}
+
+.libro-volador:nth-child(3) {
+    animation-delay: 1s;
+}
+
+@keyframes flotar {
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(-8deg);
+    }
+
+    50% {
+        transform: translateY(-25px) rotate(8deg);
+    }
+}
+
+/* Respeta la preferencia de reducir las animaciones */
+@media (prefers-reduced-motion: reduce) {
+    .libro-volador {
+        animation: none;
     }
 }
