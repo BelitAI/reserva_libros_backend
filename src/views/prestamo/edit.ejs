@@ -1,42 +1,61 @@
 <%- include('../layout/header'); -%>
 
-<div class="contenedor-formulario">
-    <h1>Editar préstamo #<%= prestamo.id %></h1>
+    <div class="contenedor-formulario">
+        <h1>Editar préstamo #<%= prestamo.id %>
+        </h1>
 
-    <% if (error) { %>
-        <p class="mensaje-aviso"><%= error %></p>
-    <% } %>
-
-    <form class="formulario" action="/prestamo/<%= prestamo.id %>/edit" method="post">
-
-        <label for="usuario">Usuario</label>
-        <select name="usuario" id="usuario" required>
-            <% for (const usuario of usuarios) { %>
-                <option value="<%= usuario.id %>" <%= usuario.id === prestamo.usuarioId ? "selected" : "" %>>
-                    <%= usuario.nombre %> <%= usuario.apellidos %>
-                </option>
+        <% if (error) { %>
+            <p class="mensaje-aviso">
+                <%= error %>
+            </p>
             <% } %>
-        </select>
 
-        <label for="libro">Libro</label>
-        <select name="libro" id="libro" required>
-            <% for (const libro of libros) { %>
-                <option value="<%= libro.id %>" <%= libro.id === prestamo.libroId ? "selected" : "" %>>
-                    <%= libro.titulo %>
-                </option>
-            <% } %>
-        </select>
+                <form class="formulario" action="/prestamo/<%= prestamo.id %>/edit" method="post">
 
-        <label for="fechaPrestamo">Fecha de préstamo</label>
-        <input type="date" name="fechaPrestamo" id="fechaPrestamo" value="<%= prestamo.fechaPrestamo %>" required>
+                    <label for="usuario">Usuario</label>
+                    <% if (user && user.role===true) { %>
 
-        <label for="fechaDevolucion">Fecha de devolución</label>
-        <input type="date" name="fechaDevolucion" id="fechaDevolucion" value="<%= prestamo.fechaDevolucion || '' %>">
+                        <select name="usuarioId" class="form-control">
+                            <% for (const usuario of usuarios) { %>
+                                <option value="<%= usuario.id %>" <%=usuario.id===prestamo.usuarioId ? "selected" : ""
+                                    %> >
+                                    <%= usuario.nombre %>
+                                        <%= usuario.apellidos %>
+                                </option>
+                                <% } %>
+                        </select>
 
-        <button>Guardar</button>
-    </form>
+                        <% } else { %>
 
-    <a href="/prestamo/<%= prestamo.id %>" class="btn-volver">← Volver</a>
-</div>
+                            <input type="text" class="form-control" value="<%= usuarios[0].nombre %> <%= usuarios[0].apellidos %>"
+                                readonly>
 
-<%- include('../layout/footer'); -%>
+                            <input type="hidden" name="usuarioId" value="<%= user.userId %>">
+
+                            <% } %>
+
+                                <label for="libro">Libro</label>
+                                <select name="libro" id="libro" required>
+                                    <% for (const libro of libros) { %>
+                                        <option value="<%= libro.id %>" <%=libro.id===prestamo.libroId ? "selected" : ""
+                                            %>>
+                                            <%= libro.titulo %>
+                                        </option>
+                                        <% } %>
+                                </select>
+
+                                <label for="fechaPrestamo">Fecha de préstamo</label>
+                                <input type="date" name="fechaPrestamo" id="fechaPrestamo"
+                                    value="<%= prestamo.fechaPrestamo %>" required>
+
+                                <label for="fechaDevolucion">Fecha de devolución</label>
+                                <input type="date" name="fechaDevolucion" id="fechaDevolucion"
+                                    value="<%= prestamo.fechaDevolucion || '' %>">
+
+                                <button>Guardar</button>
+                </form>
+
+                <a href="/prestamo/<%= prestamo.id %>" class="btn-volver">← Volver</a>
+    </div>
+
+    <%- include('../layout/footer'); -%>

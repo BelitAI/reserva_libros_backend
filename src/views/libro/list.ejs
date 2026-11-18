@@ -3,17 +3,24 @@
     <link rel="stylesheet" href="/css/libros.css">
 
     <section class="libros-page">
-        <h2>Libros</h2>
 
-        <a href="/libro/new" class="libros-boton">Crear libro</a>
+        <% if (mensaje) { %>
 
-        <div class="libros-grid">
-            <% for (const libro of libros) { %>
-                <%- include('libroCard', { libro }) %>
+            <div class="<%= mensaje.includes('correctamente') ? 'mensaje-exito' : 'mensaje-aviso' %>">
+                <%= mensaje %>
+            </div>
+
+            <% } %>
+                <h2>Libros</h2>
+                <% if (user && user.role===true) { %>
+                    <a href="/libro/new" class="libros-boton">Crear libro</a>
                     <% } %>
-        </div>
+                        <div class="libros-grid">
+                            <% for (const libro of libros) { %>
+                                <%- include('libroCard', { libro }) %>
+                                    <% } %>
+                        </div>
     </section>
-
     <%- include('confirmarEliminar') %>
         <script defer src="/js/libros-confirmar.js"></script>
         <%- include('../layout/footer') %>

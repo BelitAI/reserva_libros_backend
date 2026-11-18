@@ -1,0 +1,89 @@
+/* =====================================
+   INFORMACIÓN DEL USUARIO
+===================================== */
+
+/* CONTENEDOR PRINCIPAL */
+
+.pagina-info-usuario {
+    width: 90%;
+    max-width: 1100px;
+    margin: 40px auto;
+}
+
+/* TÍTULO */
+
+.pagina-info-usuario h1 {
+    text-align: center;
+    color: var(--color-principal-oscuro, #315c43);
+    font-size: 25px;
+    margin-bottom: 25px;
+}
+
+/* DATOS DEL USUARIO */
+
+.datos-usuario {
+    background-color: var(--color-blanco, #ffffff);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 3px 12px var(--color-sombra, rgba(0, 0, 0, 0.08));
+    margin-bottom: 30px;
+}
+
+.datos-usuario p {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--color-borde, #ccd6cc);
+    color: var(--color-texto, #333);
+}
+
+.datos-usuario p:last-child {
+    border-bottom: none;
+}
+
+.datos-usuario strong {
+    color: var(--color-principal-oscuro, #315c43);
+}
+
+/* SUBTÍTULO DE PRÉSTAMOS */
+
+.pagina-info-usuario h2 {
+    color: var(--color-principal-oscuro, #315c43);
+    font-size: 21px;
+    margin-bottom: 15px;
+}
+
+/* BOTÓN VOLVER */
+
+.btn-volver {
+    display: inline-block;
+    padding: 12px 18px;
+    margin-top: 25px;
+    background-color: var(--color-principal, #39764f);
+    color: var(--color-blanco, #ffffff);
+    text-decoration: none;
+    border-radius: 7px;
+    font-weight: bold;
+}
+
+.btn-volver:hover {
+    background-color: var(--color-principal-oscuro, #315c43);
+}
+
+/* =====================================
+   TABLET Y ESCRITORIO
+===================================== */
+
+@media (min-width: 768px) {
+
+    .pagina-info-usuario {
+        margin: 60px auto;
+    }
+
+    .pagina-info-usuario h1 {
+        font-size: 30px;
+        margin-bottom: 30px;
+    }
+
+    .datos-usuario {
+        padding: 25px 30px;
+    }
+}

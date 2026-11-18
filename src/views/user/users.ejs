@@ -1,57 +1,70 @@
 <%- include('../layout/header'); -%>
-    <div class="container">
+
+    <div class="pagina-usuarios">
 
         <h1>Lista de usuarios</h1>
 
-        <a href="/user/new">+ Nuevo usuario</a>
 
-        <table>
+                <a href="/user/new" class="btn-nuevo-usuario">
+                    + Nuevo usuario
+                </a>
 
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Apellidos</th>
-                    <th>Email</th>
-                    <th>Eliminar</th>
-                </tr>
-            </thead>
+                <div class="tabla-responsive">
+                    <table class="tabla-usuarios">
 
-            <tbody>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Apellidos</th>
+                                <th>Email</th>
+                                <th>Eliminar</th>
+                                <th>Ver</th>
+                            </tr>
+                        </thead>
 
-                <% usuarios.forEach(usuario=> { %>
+                        <tbody>
 
-                    <tr>
-                        <td>
-                            <%= usuario.id %>
-                        </td>
-                        <td>
-                            <%= usuario.nombre %>
-                        </td>
-                        <td>
-                            <%= usuario.apellidos %>
-                        </td>
-                        <td>
-                            <%= usuario.mail %>
-                        </td>
+                            <% usuarios.forEach(usuario=> { %>
 
-                        <td>
-                            <form action="/user/<%= usuario.id %>/delete" method="POST">
-                                <button type="submit">X</button>
-                            </form>
-                        </td>
-                        <td>
-                            <form action="/user/<%= usuario.id %>" method="GET">
-                                <button type="submit">Ver</button>
-                            </form>
-                        </td>
-                    </tr>
+                                <tr>
+                                    <td>
+                                        <%= usuario.id %>
+                                    </td>
+                                    <td>
+                                        <%= usuario.nombre %>
+                                    </td>
+                                    <td>
+                                        <%= usuario.apellidos %>
+                                    </td>
+                                    <td>
+                                        <%= usuario.mail %>
+                                    </td>
 
-                    <% }) %>
+                                    <td>
+                                        <form action="/user/<%= usuario.id %>/delete" method="POST">
+                                            <button type="submit" class="btn-eliminar">
+                                                Eliminar
+                                            </button>
+                                        </form>
+                                    </td>
 
-            </tbody>
+                                    <td>
+                                        <form action="/user/<%= usuario.id %>" method="GET">
+                                            <button type="submit" class="btn-ver">
+                                                Ver
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
 
-        </table>
+                                <% }) %>
+
+                        </tbody>
+
+                    </table>
+                </div>
 
     </div>
+
     <%- include('../layout/footer'); -%>

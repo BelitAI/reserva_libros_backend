@@ -69,7 +69,7 @@ const login = async (req, res) => {
             return redirect(res, "/user/login", { error: "Credenciales incorrectas" });
         }
         req.session.user = { userId: user.id, role: user.esAdmin };
-        redirect(res, "/user", { message: "Login exitoso" });
+        redirect(res, "/libro", { message: "Login exitoso" });
     } catch (error) {
         console.error(error);
         redirect(res, "/user/login", { error: "Ha habido un error en el Login" });
