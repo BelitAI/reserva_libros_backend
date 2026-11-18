@@ -7,7 +7,7 @@ import { isAdmin } from "../../middlewares/isAdmin.middleware.js";
 // // ------------------ C (Create) ------------------
 
 // // Vista de creación
-router.get("/new",userViewController.createForm);
+router.get("/new", userViewController.createForm);
 
 // // Crear usuario
 router.post("/new", userViewController.createUser);
@@ -24,7 +24,7 @@ router.post("/logout", userViewController.logout);
 // // ------------------ R (Read) ------------------
 
 // // Mostrar todos los usuarios
-router.get("/", userViewController.getAll);
+router.get("/", isAuthenticated, isAdmin, userViewController.getAll);
 
 // // Mostrar usuario individual
 router.get("/:id", userViewController.getById);

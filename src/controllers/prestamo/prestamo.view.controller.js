@@ -5,7 +5,7 @@ import prestamoRepository, { PrestamoError } from "../../repositories/prestamo.r
 // ------------------ C (Create)
 const createForm = async (req, res) => {
     const [usuarios, libros] = await Promise.all([
-        prestamoRepository.usuariosParaFormulario(),
+        prestamoRepository.usuariosParaFormulario(req.session.user),
         prestamoRepository.librosParaFormulario()
     ]);
     res.render("prestamo/create", { usuarios, libros, error: null, datos: {} });
@@ -58,9 +58,11 @@ const updateForm = async (req, res) => {
         return res.redirect("/prestamo");
     }
     const [usuarios, libros] = await Promise.all([
-        prestamoRepository.usuariosParaFormulario(),
+        prestamoRepository.usuariosParaFormulario(req.session.user),
         prestamoRepository.librosParaFormulario(prestamo.libroId)
     ]);
+    console.log("usuarios", usuarios);
+    
     res.render("prestamo/edit", { prestamo, usuarios, libros, error: null });
 };
 
@@ -82,6 +84,8 @@ const update = async (req, res) => {
             prestamoRepository.usuariosParaFormulario(),
             prestamoRepository.librosParaFormulario(prestamo.libroId)
         ]);
+        console.log("fewefwenfowenfwioenfwioenfwioenfwioef", usuarios);
+        
         // se conservan los valores que el usuario acababa de escribir
         prestamo.set({
             usuarioId: Number(req.body.usuario) || prestamo.usuarioId,

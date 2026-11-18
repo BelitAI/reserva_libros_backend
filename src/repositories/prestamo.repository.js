@@ -82,7 +82,30 @@ const listar = async (usuario) => {
 };
 const obtener = (id) => Prestamo.findByPk(aEntero(id, "id"), { include: incluir });
 
-const usuariosParaFormulario = () => Usuario.findAll({ order: [["id", "ASC"]] });
+const usuariosParaFormulario = async (usuario) => {
+    try {
+        let usuarios;
+
+        if (usuario.role === true) {
+            usuarios = await Usuario.findAll({
+                order: [["id", "ASC"]]
+            });
+        } else {
+            usuarios = await Usuario.findAll({
+                where: {
+                    id: usuario.userId
+                },
+                order: [["id", "ASC"]]
+            });
+        }
+        console.log("USUARIOS", usuarios);
+        
+        return usuarios;
+
+    } catch (error) {
+        console.error(error);
+    }
+};
 
 // Libros disponibles (+ el que ya tiene el préstamo que se está editando)
 const librosParaFormulario = async (libroActualId = null) => {
