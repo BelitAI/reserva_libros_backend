@@ -3,7 +3,7 @@ import autorRepository from "../../repositories/autor.repository.js";
 // MOSTRAR TODOS LOS AUTORES
 const getAll = async (req, res) => {
     const autores = await autorRepository.obtenerTodos();
-    
+
     const mensaje = req.query.mensaje || "";
 
     res.render("autor/list", { autores, mensaje });
@@ -76,11 +76,44 @@ const getById = async (req, res) => {
     res.render("autor/autor-libros", { autor });
 };
 
+// Crear un autor desde el formulario de un libro
+const createFromBook = async (req, res) => {
+    const nombre = (req.body.nombre || "").trim();
+    const nacionalidad = (req.body.nacionalidad || "").trim();
+    const fechaNacimiento = req.body.fecha_nacimiento;
+
+    if (!nombre || !nacionalidad || !fechaNacimiento) {
+        return res.status(400).json({
+            mensaje: "Completa todos los campos del autor."
+        });
+    }
+
+    try {
+        const autor = await autorRepository.createAutores({
+            nombre,
+            nacionalidad,
+            fecha_nacimiento: fechaNacimiento
+        });
+
+        return res.status(201).json({
+            id: autor.id,
+            nombre: autor.nombre
+        });
+    } catch (error) {
+        console.error("Error al crear el autor:", error);
+
+        return res.status(500).json({
+            mensaje: "No se ha podido guardar el autor."
+        });
+    }
+};
+
 // EXPORTAR CONTROLADORES
 export default {
     getAll,
     createForm,
     create,
+    createFromBook,
     editForm,
     update,
     remove,

@@ -248,3 +248,70 @@
     color: var(--color-error);
     font-weight: bold;
 }
+
+/* Ventana para crear un autor desde un libro */
+#modal-autor {
+    width: min(90%, 500px);
+    padding: 28px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.2);
+}
+
+#modal-autor::backdrop {
+    background: rgba(0, 0, 0, 0.45);
+}
+
+#form-nuevo-autor {
+    display: grid;
+    gap: 10px;
+}
+
+#form-nuevo-autor input {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #94a3b8;
+    border-radius: 6px;
+    font: inherit;
+}
+
+.modal-autor-acciones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.modal-autor-acciones button {
+    padding: 10px 16px;
+    border: 0;
+    border-radius: 6px;
+    background: #39764f;
+    color: white;
+    cursor: pointer;
+}
+
+#error-nuevo-autor {
+    color: #b42318;
+}
+
+/* Acción secundaria para crear un autor */
+.libros-page #abrir-autor {
+    padding: 0;
+    margin: 0;
+    background: none;
+    color: var(--color-principal, #39764f);
+    text-align: left;
+}
+
+.libros-page #abrir-autor:hover {
+    background: none;
+    color: var(--color-principal-oscuro, #315c43);
+    text-decoration: underline;
+}
+
+.libros-page #abrir-autor:focus-visible {
+    outline: 2px solid var(--color-principal, #39764f);
+    outline-offset: 3px;
+}
